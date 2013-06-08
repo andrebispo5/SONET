@@ -1,0 +1,426 @@
+	<project name="largacaixa" default="build" basedir=".">
+	
+	    <description>JBoss Java Web Service build file - contract first</description>
+	
+	    <import file="jboss7.xml"/>
+			
+	    <!-- properties and paths -->
+	    <property name="src.dir" location="src" />
+	    <property name="web.dir" location="WebContent" />
+	    <property name="build.dir" location="build" />
+	    <property name="build.classes.dir" location="${build.dir}/classes" />
+	    <property name="build.src.dir" location="${build.dir}/src" />
+		
+	    <path id="project.classpath">
+	        <pathelement location="${build.classes.dir}" />
+	        <path refid="javax.servlet.api" />
+	        <path refid="javax.xml.registry.api" />
+	        <path refid="com.mysql.jdbc" />
+	    </path>
+	
+	    <property name="wsdl.file" value="${web.dir}/LargaCaixa.1_0.wsdl" />
+	    <makeurl property="wsdl.url" file="${wsdl.file}" />
+		
+		<property name="ws.url" value="${web.dir}/ControlImpl.wsdl" />
+		<property name="wsdl.url2" value="${ws.url}" />
+		
+		<!-- This property defines the instance identifier.
+			 By default it is empty. It can be redefined using ant -D or using antcall inside a target -->
+		<property name="instance" value="" />
+	
+		<property name="war.filename" value="${ant.project.name}${instance}.war" />
+		<property name="war.file" value="${build.dir}/${war.filename}" />
+	
+	    <property name="war.filename2" value="control.war" />
+	    <property name="war.file2" value="${build.dir}/${war.filename2}" />
+		
+	    <target name="show"
+	        description="Show property values" >
+	        <echo message="ant.project.name = ${ant.project.name}" />
+	        <echo message="" />
+	        <echo message="src.dir = ${src.dir}" />
+	        <echo message="web.dir = ${web.dir}" />
+	        <echo message="build.dir = ${build.dir}" />
+	        <echo message="build.classes.dir = ${build.classes.dir}" />
+	        <echo message="build.src.dir = ${build.classes.dir}" />
+	        <echo message="" />
+	        <pathconvert property="project.classpath" refid="project.classpath" />
+	        <echo message="project.classpath= ${project.classpath}" />
+	        <echo message="" />
+	        <echo message="wsdl.url = ${wsdl.url}" />
+	        <echo message="" />
+	        <echo message="war.file = ${war.file}" />
+	    </target>
+	
+	    <!-- targets -->
+	    <target name="init">
+	        <mkdir dir="${build.dir}" />
+	        <mkdir dir="${build.classes.dir}" />
+	        <mkdir dir="${build.src.dir}" />
+	    </target>
+	
+	    <target name="clean"
+	        description="Delete build directory" >
+	        <delete dir="${build.dir}" />
+	    </target>
+	
+	    <target name="prepare-resources" depends="init">
+	    <!-- description="Prepare application resource files" -->
+	        <copy todir="${build.classes.dir}" overwrite="true">
+	            <fileset dir="${src.dir}" excludes="**/*.java" />
+	        </copy>
+	        <replace dir="${build.classes.dir}" excludes="**/*.class" summary="true">
+	            <replacefilter token="@example-token@" value="${example-property}" />
+	        </replace>
+	    </target>
+	
+	    <target name="wsimport" depends="init"
+	        description="Generate web service server" >
+	        <!-- assumes that wsimport tool is available in PATH environment property -->
+	        <echo message="${wsdl.url}" />
+	        <exec executable="wsimport" failonerror="true">
+	            <arg value="-d" />
+	            <arg value="${build.classes.dir}"/>
+	            <arg value="-s" />
+	            <arg value="${build.src.dir}" />
+	            <arg value="${wsdl.url}" />
+	        </exec>
+	    </target>
+			
+		<target name="wsimport-control" depends="init"
+			description="Generate web service server" >
+		    <!-- assumes that wsimport tool is available in PATH environment property -->
+		    <echo message="${wsdl.url2}" />
+		    <exec executable="wsimport" failonerror="true">
+		    	<arg value="-d" />
+		        <arg value="${build.classes.dir}"/>
+		        <arg value="-s" />
+		        <arg value="${build.src.dir}" />
+		        <arg value="${wsdl.url2}" />
+			</exec>
+		</target>
+		
+	    <target name="compile" depends="init,prepare-resources,wsimport,wsimport-control"
+	        description="Compile source code" >
+	        <javac srcdir="${src.dir}"
+	            destdir="${build.classes.dir}"
+	            includeantruntime="false" debug="true">
+	            <classpath refid="project.classpath" />
+	        </javac>
+	    </target>
+		
+		<target name="run" depends="compile"
+			description="Run program" >
+			<java classname="${run.mainclass}" fork="true">
+				<arg line="${run.args}" />
+				<classpath refid="project.classpath" />
+			</java>
+		</target>
+	
+	    <target name="create-war" depends="compile">
+	    <!-- description="Create Web application ARchive" -->
+	    	<war destfile="${war.file}" webxml="${web.dir}/WEB-INF/web${instance}.xml" manifest="${web.dir}/META-INF/MANIFEST.MF" update="true"> 
+	    		<!-- web content -->
+	            <zipfileset dir="${web.dir}"
+	                includes="**/*" excludes="WEB-INF/web*.xml" />
+	            <!-- compiled classes and resource files -->
+	            <zipfileset dir="${build.classes.dir}"
+			        includes="**/*,**/*.properties,**/*.xml"
+	        		prefix="WEB-INF/classes" />
+	            <!-- referenced libs -->
+	            <!--zipfileset dir="(...)"
+	                includes="*.jar"
+	                prefix="WEB-INF/lib" /-->
+	        </war>
+	    </target>
+		
+		<target name="create-jar" depends="compile">
+				<jar destfile="${build.dir}/largacaixa.jar" update="true">
+					<zipfileset dir="${build.classes.dir}" />
+				</jar>
+			</target>
+		
+		<target name="create-war-control" depends="compile">
+			<!-- description="Create Web application ARchive" -->
+			<war destfile="${war.file2}" webxml="${web.dir}/WEB-INF/web.xml" manifest="${web.dir}/META-INF/MANIFEST.MF" update="true">
+				<!-- web content -->
+				<zipfileset dir="${web.dir}"
+			    	includes="**/*" excludes="WEB-INF/web*.xml" />
+			    <!-- compiled classes and resource files -->
+			    <zipfileset dir="${build.classes.dir}"
+			    	includes="**/*,**/*.properties,**/*.xml"
+			    	prefix="WEB-INF/classes" />
+			    <!-- referenced libs -->
+			    <!--zipfileset dir="(...)"
+			    	includes="*.jar"
+			    	prefix="WEB-INF/lib" /-->
+			</war>
+		</target>
+	
+	    <target name="build" depends="create-war,create-war-control"
+	        description="Build the project" />
+		
+		<target name="build-1" description="Build instance 1">
+			<antcall target="build" inheritAll="false">
+				<param name="instance" value="1"/>
+			</antcall>
+		</target>
+		
+		<target name="build-2" description="Build instance 2">
+			<antcall target="build" inheritAll="false">
+				<param name="instance" value="2"/>
+			</antcall>
+		</target>
+		
+		<target name="build-all" depends="build-1,build-2"
+			description="Build multiple instances of project" />
+	
+		<target name="rebuild" depends="clean,db-clean,build" />
+	
+		<!-- this is new: Deploy the first web service -->
+		<target name="deploy-1" description="Deploy instance 1 to JBoss AS">
+			<antcall target="deploy" inheritAll="false">
+		    	<param name="instance" value="1"/>
+			</antcall>
+		</target>
+		
+		<!-- this is new: Undeploy the first web service -->
+		<target name="undeploy-1" description="Undeploy instance 1 from JBoss AS">
+			<antcall target="undeploy" inheritAll="false">
+		      	<param name="instance" value="1"/>
+		    </antcall>
+		</target>
+	
+		<!-- this is new: Deploy the second web service -->
+		<target name="deploy-2" description="Deploy instance 2 to JBoss AS">
+			<antcall target="deploy" inheritAll="false">
+				<param name="instance" value="2"/>
+			</antcall>
+		</target>
+		
+		<!-- this is new: Undeploy the second web service -->
+		<target name="undeploy-2" description="Undeploy instance 2 from JBoss AS">
+			<antcall target="undeploy" inheritAll="false">
+				<param name="instance" value="2"/>
+			</antcall>
+		</target>
+		
+		<!-- this is new: Deploy all the web services -->
+		<target name="deploy-all" depends="deploy-1,deploy-2"
+			description="Deploy all web services">
+		</target>
+	
+		<!-- this is new: Undeploy all the web services -->
+		<target name="undeploy-all" depends="undeploy-1,undeploy-2"
+			description="Undeploy all web services">
+		</target>
+	
+		<!-- Database properties and paths -->
+		<property name="sql.driver" value="com.mysql.jdbc.Driver"/>
+	
+		<property name="sql.host" value="localhost"/>
+		<property name="sql.port" value="3306"/>
+		<property name="sql.url" value="jdbc:mysql://${sql.host}:${sql.port}" />
+	
+	    <property name="sql.admin.user" value="root"/>
+		<property name="sql.admin.pass" value=""/>
+	
+	    <property name="sql.db1" value="largacaixa1"/>
+	    <property name="sql.db2" value="largacaixa2"/>
+	    <property name="sql.db.url1" value="${sql.url}/${sql.db1}" />
+	    <property name="sql.db.url2" value="${sql.url}/${sql.db2}" />
+		
+	    <property name="sql.user" value="largacaixauser"/>
+	    <property name="sql.pass" value="largacaixapass"/>
+	    <property name="sql.db.userpass.url1" value="${sql.url}/${sql.db1}?username=${sql.user}&amp;password=" />
+	    <property name="sql.db.userpass.url2" value="${sql.url}/${sql.db2}?username=${sql.user}&amp;password=" />
+		
+	
+	    <!-- - - - - - - - - [ M y S Q L   d a t a b a s e ] - - - - - - - - - -->
+	    <target name="db-create-1">
+			<echo message="Creating SQL database '${sql.db.url1}'"/>
+		    <sql driver="${sql.driver}" url="${sql.url}"
+	        	 userid="${sql.admin.user}" password="${sql.admin.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				CREATE DATABASE IF NOT EXISTS ${sql.db1};
+		
+				USE ${sql.db1};
+		
+				CREATE TABLE CAIXAS_ID(NAME varchar(20) not null, primary key (NAME));
+				        	
+				CREATE TABLE CAIXAS(NAME varchar(20) not null,
+									FILE varchar(20) not null,
+				        			PRECO int not null,
+				        			DATA MEDIUMBLOB not null,
+				        			primary key (FILE),
+		    						FOREIGN KEY (NAME) REFERENCES CAIXAS_ID(NAME) )
+		    	;
+			</sql>
+		</target>
+		
+	    <target name="db-create-2">
+		    <echo message="Creating SQL database '${sql.db.url2}'"/>
+		    <sql driver="${sql.driver}" url="${sql.url}"
+	        	 userid="${sql.admin.user}" password="${sql.admin.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				CREATE DATABASE IF NOT EXISTS ${sql.db2};
+		
+				USE ${sql.db2};
+		
+				CREATE TABLE CAIXAS_ID(NAME varchar(20) not null, primary key (NAME));
+				        	
+				CREATE TABLE CAIXAS(NAME varchar(20) not null,
+									FILE varchar(20) not null,
+				        			PRECO int not null,
+				        			DATA MEDIUMBLOB not null,
+    								primary key (FILE),
+									FOREIGN KEY (NAME) REFERENCES CAIXAS_ID(NAME) )
+		    	;
+			</sql>
+		</target>
+		
+	    <target name="db-create-all" depends="db-create-1,db-create-2"
+			description="Creating all SQL databases"/>
+	
+	    <target name="db-populate-1">
+			<echo message="Populating SQL database '${sql.db.url1}'"/>
+			<sql driver="${sql.driver}" url="${sql.db.url1}"
+				 userid="${sql.user}" password="${sql.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				INSERT INTO CAIXAS_ID VALUES("alice"),
+											("bruno"),
+											("carlos"), 
+				        					("mariazinha"),
+				        					("zeninguem"),
+				        					("bn"),
+				        					("ist");
+			</sql>
+		</target>
+		
+		<target name="db-populate-2">
+			<echo message="Populating SQL database '${sql.db.url2}'"/>
+			<sql driver="${sql.driver}" url="${sql.db.url2}"
+				 userid="${sql.user}" password="${sql.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				INSERT INTO CAIXAS_ID VALUES("alice"),
+											("bruno"),
+											("carlos"), 
+				        					("mariazinha"),
+				        					("zeninguem"),
+				        					("bn"),
+				        					("ist");
+			</sql>
+		</target>
+	
+		<target name="db-populate-all" depends="db-populate-1,db-populate-2"
+			description="Populating all SQL databases"/>
+	
+		<target name="db-dump-1"
+	  			description="Print table contents">
+			<echo message="Selecting all tables from '${sql.db.url1}'"/>
+			<sql driver="${sql.driver}" url="${sql.db.url1}" print="true"
+				 userid="${sql.user}" password="${sql.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				SELECT * FROM ${sql.db1}.CAIXAS;
+			</sql>
+		</target>
+		
+		<target name="db-dump-2"
+	  			description="Print table contents">
+			<echo message="Selecting all tables from '${sql.db.url2}'"/>
+			<sql driver="${sql.driver}" url="${sql.db.url2}" print="true"
+				 userid="${sql.user}" password="${sql.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				SELECT * FROM ${sql.db2}.CAIXAS;
+			</sql>
+		</target>
+		
+		<target name="db-dump-all" depends="db-dump-1,db-dump-2"
+	  		description="Print all table contents"/>
+	
+		<target name="db-drop-1">
+			<echo message="Dropping SQL database '${sql.db1}'@'${sql.url}'"/>
+			<sql driver="${sql.driver}" url="${sql.url}"
+			     userid="${sql.user}" password="${sql.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				DROP DATABASE IF EXISTS ${sql.db1};
+			</sql>
+		</target>
+		
+		<target name="db-drop-2">
+			<echo message="Dropping SQL database '${sql.db2}'@'${sql.url}'"/>
+			<sql driver="${sql.driver}" url="${sql.url}"
+			     userid="${sql.user}" password="${sql.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				DROP DATABASE IF EXISTS ${sql.db2};
+			</sql>
+		</target>
+		
+		<target name="db-drop-all" depends="db-drop-1,db-drop-2"
+	  		description="Dropping all SQL databases"/>	
+	
+		
+		<!-- - - - - - - - - - - [ M y S Q L   u s e r ] - - - - - - - - - - - -->
+		<target name="dbuser-create">
+			<echo message="Creating SQL user '${sql.user}' with password '${sql.pass}'"/>
+			<sql driver="${sql.driver}" url="${sql.url}"
+				 userid="${sql.admin.user}" password="${sql.admin.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				CREATE USER '${sql.user}'@'${sql.host}' IDENTIFIED BY '${sql.pass}';
+			</sql>
+		</target>
+		
+		<target name="dbuser-drop">
+			<echo message="Removes SQL user '${sql.user}'"/>
+			<sql driver="${sql.driver}" url="${sql.url}"
+				 userid="${sql.admin.user}" password="${sql.admin.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				DROP USER '${sql.user}'@'${sql.host}';		
+			</sql>		
+		</target>
+	
+		<target name="dbuser-grant-1">
+			<echo message="Grating SQL DB permissions to '${sql.user}'@'${sql.host}'"/>
+			<sql driver="${sql.driver}" url="${sql.url}"
+				 userid="${sql.admin.user}" password="${sql.admin.pass}">
+			    <classpath refid="com.mysql.jdbc"/>
+			    GRANT USAGE ON *.* TO '${sql.user}'@'${sql.host}';
+				GRANT ALL PRIVILEGES ON ${sql.db1}.* TO '${sql.user}'@'${sql.host}';
+			</sql>
+		</target>
+		
+		<target name="dbuser-grant-2">
+			<echo message="Grating SQL DB permissions to '${sql.user}'@'${sql.host}'"/>
+			<sql driver="${sql.driver}" url="${sql.url}"
+				 userid="${sql.admin.user}" password="${sql.admin.pass}">
+				<classpath refid="com.mysql.jdbc"/>
+				GRANT USAGE ON *.* TO '${sql.user}'@'${sql.host}';
+				GRANT ALL PRIVILEGES ON ${sql.db2}.* TO '${sql.user}'@'${sql.host}';
+			</sql>
+		</target>
+		
+		<target name="dbuser-grant-all" depends="dbuser-grant-1,dbuser-grant-2"
+			description="Granting all SQL databases"/>	
+		
+		<!-- - - - - - - - - - - [ M y S Q L   m a i n ] - - - - - - - - - - - -->
+		<target name="db-build-1"
+			depends="dbuser-create,dbuser-grant-1,db-create-1,db-populate-1"
+			description="Build database 1"/>
+		
+		<target name="db-build-2"
+				depends="dbuser-create,dbuser-grant-2,db-create-2,db-populate-2"
+				description="Build database 2"/>
+		
+		<target name="db-build-all"
+				depends="dbuser-create,dbuser-grant-all,db-create-all,db-populate-all"
+				description="Build all databases"/>
+	
+		<target name="db-clean"
+			depends="dbuser-grant-all,db-drop-all,dbuser-drop"
+		    description="Clean databases"/>
+	
+		<target name="db-rebuild"
+			depends="db-drop-all,dbuser-drop,dbuser-create,dbuser-grant-all,db-create-all,db-populate-all"
+			description="Rebuild database"/>	
+	
+	</project>

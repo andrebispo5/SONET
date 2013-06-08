@@ -1,0 +1,13 @@
+###############################################################
+[===================== ERROR DESCRIPTION =====================]
+Umbrella Exception when clicking on a button!
+Caused by a null element.
+	
+[======================== HOW TO FIX =========================]		
+Make sure that all the attributes declared on the class
+are initialized at some point. In this case the 
+rpcService was null because it was not initialized on 
+the constructor. When calling rpcService on the click
+handler of the button it was null and the exception 
+was thrown.
+###############################################################

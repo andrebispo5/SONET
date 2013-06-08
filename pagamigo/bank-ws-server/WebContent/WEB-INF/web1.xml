@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+ <!-- context parameters used for UDDI registration -->
+    <context-param>
+        <param-name>uddi.server.host</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <param-name>uddi.server.port</param-name>
+        <param-value>8081</param-value>
+    </context-param>
+    <context-param>
+        <param-name>uddi.organization</param-name>
+        <param-value>1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>uddi.service</param-name>
+        <param-value>1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>uddi.binding</param-name>
+        <param-value>serviceBind</param-value>
+    </context-param>
+    <context-param>
+        <param-name>uddi.binding.url</param-name>
+        <!-- ${HOST} or ${IP}, and ${CONTEXT} will be replaced by detected values -->
+        <param-value>http://localhost:8080${CONTEXT}/endpoint</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>pt.bank.ws.UDDIContextListener</listener-class>
+    </listener>
+
+
+	<servlet>
+		<servlet-name>Bank</servlet-name>
+		<servlet-class>pt.bank.ws.BankImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Bank</servlet-name>
+		<url-pattern>/endpoint</url-pattern>
+	</servlet-mapping>
+	
+<!-- context parameters used for BANK Database undersnights -->
+
+	
+    <context-param>
+        <param-name>DB.URL</param-name>
+        <param-value>jdbc:mysql://localhost:3306/testdb1</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>DB.USER</param-name>
+        <param-value>testdb1user</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>DB.PASS</param-name>
+        <param-value>testdb1pass</param-value>
+    </context-param>
+    
+    
+
+
+
+</web-app>

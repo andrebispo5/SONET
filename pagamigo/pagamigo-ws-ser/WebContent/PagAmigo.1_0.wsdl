@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Contrato WSDL do serviço PagAmigo
+    
+    Versão 1.0 de 2013-03-21
+    
+    Este WSDL define as operações disponibilizadas pelo Web Service,
+    e não pode ser modificado.
+    
+    Consultar secções wsdl:service, wsdl:portType, wsdl:types e wsdl:binding
+-->
+<wsdl:definitions name="PagAmigoService"
+    targetNamespace="http://ws.pagamigo.pt/"
+    xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://ws.pagamigo.pt/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <wsdl:types>
+        <!--
+            Definições dos tipos de dados
+        -->
+        <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+            targetNamespace="http://ws.pagamigo.pt/"
+            xmlns:tns="http://ws.pagamigo.pt/"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+            <!--
+                O pedido da operação 'consultarSaldo' recebe:
+                - o identificador do cliente
+
+                O identificador do cliente é textual, sem espaços,
+                com caracteres alfabéticos e numéricos.
+            -->
+            <xsd:element name="consultarSaldo" type="tns:consultarSaldoType"/>
+            <xsd:complexType name="consultarSaldoType">
+                <xsd:sequence>
+                    <xsd:element name="idCliente" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'consultarSaldo'
+                devolve o saldo da conta do cliente.
+
+                O tipo de dados mais adequado seria xsd:decimal
+                para lidar com números de precisão arbitrária,
+                para evitar acumulação de erros de arredondamento.
+                No entanto, optou-se por usar xsd:int.
+            -->
+            <xsd:element name="consultarSaldoResponse" type="tns:consultarSaldoResponseType"/>
+            <xsd:complexType name="consultarSaldoResponseType">
+                <xsd:sequence>
+                    <xsd:element name="saldo" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!--
+                O pedido da operação 'efectuarPagamento' recebe:
+                - o identificador do cliente que está a dar a ordem de pagamento
+                - o identificador do cliente que irá beneficiar do pagamento
+                - o montante do pagamento
+                - o descritivo do pagamento
+            -->
+            <xsd:element name="efectuarPagamento" type="tns:efectuarPagamentoType"/>
+            <xsd:complexType name="efectuarPagamentoType">
+                <xsd:sequence>
+                    <xsd:element name="clienteOrdenante" type="xsd:string"/>
+                    <xsd:element name="clienteBeneficiario" type="xsd:string"/>
+                    <xsd:element name="montante" type="xsd:int"/>
+                    <xsd:element minOccurs="0" name="descritivo" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'efectuarPagamento'
+                devolve um comprovativo de pagamento (tipo não especificado).
+
+                Tipicamente um comprovativo deverá conter:
+                data e hora, ordenante, beneficiário, montante, e descritivo;
+                e terá que ser protegido contra alterações.
+            -->
+            <xsd:element name="efectuarPagamentoResponse" type="tns:efectuarPagamentoResponseType"/>
+            <xsd:complexType name="efectuarPagamentoResponseType">
+                <xsd:sequence>
+                    <xsd:element name="comprovativo" type="xsd:anyType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!--
+                O pedido da operação 'consultarMovimentos' recebe:
+                - o identificador do cliente
+            -->
+            <xsd:element name="consultarMovimentos" type="tns:consultarMovimentosType"/>
+            <xsd:complexType name="consultarMovimentosType">
+                <xsd:sequence>
+                    <xsd:element name="idCliente" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'consultarMovimentos'
+                devolve uma lista de movimentos
+            -->
+            <xsd:element name="consultarMovimentosResponse" type="tns:consultarMovimentosResponseType"/>
+            <xsd:complexType name="consultarMovimentosResponseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="movimento" type="tns:movimentoType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                Cada movimento contém data, hora, montante e descritivo.
+                Um montante positivo indica um crédito,
+                um montante negativo indica um débito.
+            -->
+            <xsd:complexType name="movimentoType">
+                <xsd:sequence>
+                    <xsd:element name="dataHora" type="xsd:dateTime"/>
+                    <xsd:element name="montante" type="xsd:int"/>
+                    <xsd:element minOccurs="0" name="descritivo" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+           <!--
+                A resposta de erro 'ClienteInexistente'
+                indica que o cliente indicado não existe.
+            -->
+            <xsd:element name="ClienteInexistente" type="tns:ClienteInexistenteType"/>
+            <xsd:complexType name="ClienteInexistenteType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                A resposta de erro 'MontanteInvalido'
+                indica que o montante indicado para o pagamento não faz sentido
+                no âmbito da operação.
+            -->
+            <xsd:element name="MontanteInvalido" type="tns:MontanteInvalidoType"/>
+            <xsd:complexType name="MontanteInvalidoType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                A resposta de erro 'SaldoInsuficiente'
+                indica que o saldo na conta não é suficiente para realizar a operação.
+            -->
+            <xsd:element name="SaldoInsuficiente" type="tns:SaldoInsuficienteType"/>
+            <xsd:complexType name="SaldoInsuficienteType">
+                <xsd:sequence/>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <!--
+        As mensagens referenciam os elementos definidos no xsd:schema
+    -->
+    <wsdl:message name="consultarSaldo">
+        <wsdl:part element="tns:consultarSaldo" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarSaldoResponse">
+        <wsdl:part element="tns:consultarSaldoResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="efectuarPagamento">
+        <wsdl:part element="tns:efectuarPagamento" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="efectuarPagamentoResponse">
+        <wsdl:part element="tns:efectuarPagamentoResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarMovimentos">
+        <wsdl:part element="tns:consultarMovimentos" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarMovimentosResponse">
+        <wsdl:part element="tns:consultarMovimentosResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ClienteInexistente">
+        <wsdl:part element="tns:ClienteInexistente" name="ClienteInexistente">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="MontanteInvalido">
+        <wsdl:part element="tns:MontanteInvalido" name="MontanteInvalido">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SaldoInsuficiente">
+        <wsdl:part element="tns:SaldoInsuficiente" name="SaldoInsuficiente">
+        </wsdl:part>
+    </wsdl:message>
+
+    <!--
+        Definição das operações do serviço
+    -->
+    <wsdl:portType name="PagAmigoPortType">
+        <!--
+            A operação 'consultarSaldo' recebe o identificador do cliente
+            e devolve o seu saldo actual.
+
+            Se o cliente não existir,
+            deve ser devolvido o erro ClienteInexistente.
+        -->
+        <wsdl:operation name="consultarSaldo">
+            <wsdl:input message="tns:consultarSaldo" name="consultarSaldo">
+            </wsdl:input>
+            <wsdl:output message="tns:consultarSaldoResponse" name="consultarSaldoResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:ClienteInexistente" name="ClienteInexistente">
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!--
+            A operação 'efectuarPagamento' recebe os identificadores
+            dos clientes ordenante e beneficiário,
+            o montante a transferir e um descritivo do pagamento.
+
+            O dinheiro deverá ser transferido
+            da conta do banco do cliente ordenante
+            para a conta do banco do cliente beneficiário.
+
+            Se algum dos clientes indicados não existir,
+            deve ser devolvido o erro ClienteInexistente.
+
+            Se o montante for menor ou igual a zero,
+            deve ser devolvido o erro MontanteInvalido.
+
+            Se o saldo da conta do banco do cliente ordenante não for suficiente,
+            deve ser devolvido o erro SaldoInsuficiente.
+
+            O descritivo do pagamento é opcional.
+        -->
+        <wsdl:operation name="efectuarPagamento">
+            <wsdl:input message="tns:efectuarPagamento" name="efectuarPagamento">
+            </wsdl:input>
+            <wsdl:output message="tns:efectuarPagamentoResponse" name="efectuarPagamentoResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:ClienteInexistente" name="ClienteInexistente">
+            </wsdl:fault>
+            <wsdl:fault message="tns:MontanteInvalido" name="MontanteInvalido">
+            </wsdl:fault>
+            <wsdl:fault message="tns:SaldoInsuficiente" name="SaldoInsuficiente">
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!--
+            A operação 'consultarMovimentos' recebe o identificador do cliente
+            e devolve uma lista de pagamentos efectuados,
+            ordenados do mais recente para o mais antigo.
+
+            Se o cliente não existir,
+            deve ser devolvido o erro ClienteInexistente.
+        -->
+        <wsdl:operation name="consultarMovimentos">
+            <wsdl:input message="tns:consultarMovimentos" name="consultarMovimentos">
+            </wsdl:input>
+            <wsdl:output message="tns:consultarMovimentosResponse" name="consultarMovimentosResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:ClienteInexistente" name="ClienteInexistente">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <!--
+        Vinculação das operações abstractas (descritas em wsdl:portType)
+        e operações concretas.
+        Neste caso, as operações devem ser invocadas através de mensagens SOAP
+        transmitidas sobre o protocolo HTTP (que por sua vez usa TCP/IP)
+    -->
+    <wsdl:binding name="PagAmigoServiceSoapBinding" type="tns:PagAmigoPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="consultarSaldo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultarSaldo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultarSaldoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ClienteInexistente">
+                <soap:fault name="ClienteInexistente" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="efectuarPagamento">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="efectuarPagamento">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="efectuarPagamentoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="MontanteInvalido">
+                <soap:fault name="MontanteInvalido" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ClienteInexistente">
+                <soap:fault name="ClienteInexistente" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="SaldoInsuficiente">
+                <soap:fault name="SaldoInsuficiente" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="consultarMovimentos">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultarMovimentos">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultarMovimentosResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="ClienteInexistente">
+                <soap:fault name="ClienteInexistente" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <!--
+        PagAmigo é um Web Service que gere contas de utilizadores que estão,
+        por sua vez, associadas a contas bancárias em bancos.
+
+        No sistema bancário, os números de conta têm 4 dígitos,
+        em que o primeiro digíto indica o banco,
+        e os restantes digítos indicam o número da conta no banco.
+
+        No PagAmigo cada utilizador tem uma conta cliente
+        que pode usar para efectuar pagamentos
+        - em redes sociais, sítios de comércio electrónico, etc -
+        sem nunca ter que expor os dados bancários.
+        Toda a interacção com os bancos é efectuada pelo serviço.
+    -->
+    <wsdl:service name="PagAmigoService">
+        <!--
+            O URL abaixo é o endereço por omissão do Web Service.
+            No entanto o serviço pode e deve ser oferecido noutro endereço,
+            que deve ser descoberto dinamicamente através do UDDI.
+        -->
+        <wsdl:port binding="tns:PagAmigoServiceSoapBinding" name="PagAmigoPort">
+            <soap:address location="http://localhost:8080/pagamigo-ws/endpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

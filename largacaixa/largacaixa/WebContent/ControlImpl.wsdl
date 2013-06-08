@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="ControlImplService" targetNamespace="http://ws.largacaixa.pt/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.largacaixa.pt/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://ws.largacaixa.pt/" version="1.0" xmlns:tns="http://ws.largacaixa.pt/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="getAlive" type="tns:getAlive"/>
+<xs:element name="getAliveResponse" type="tns:getAliveResponse"/>
+<xs:element name="setAlive" type="tns:setAlive"/>
+<xs:complexType name="getAlive">
+    <xs:sequence/>
+  </xs:complexType>
+<xs:complexType name="getAliveResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="setAlive">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getAlive">
+    <wsdl:part element="tns:getAlive" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setAlive">
+    <wsdl:part element="tns:setAlive" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAliveResponse">
+    <wsdl:part element="tns:getAliveResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Control">
+    <wsdl:operation name="getAlive">
+      <wsdl:input message="tns:getAlive" name="getAlive">
+    </wsdl:input>
+      <wsdl:output message="tns:getAliveResponse" name="getAliveResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setAlive">
+      <wsdl:input message="tns:setAlive" name="setAlive">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ControlImplServiceSoapBinding" type="tns:Control">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAlive">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAlive">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAliveResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setAlive">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setAlive">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ControlImplService">
+    <wsdl:port binding="tns:ControlImplServiceSoapBinding" name="ControlImplPort">
+      <soap:address location="http://localhost:8080/largacaixa1/ControlImpl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

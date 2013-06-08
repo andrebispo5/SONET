@@ -1,0 +1,487 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    Contrato WSDL do serviço LargaCaixa
+    
+    Versão 1.0 de 2013-03-21
+    
+    Este WSDL define as operações disponibilizadas pelo Web Service,
+    e não pode ser modificado.
+    
+    Consultar secções wsdl:service, wsdl:portType, wsdl:types e wsdl:binding
+-->
+<wsdl:definitions name="LargaCaixaService"
+    targetNamespace="http://ws.largacaixa.pt/"
+    xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://ws.largacaixa.pt/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <wsdl:types>
+        <!--
+            Definições dos tipos de dados
+        -->
+        <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+            targetNamespace="http://ws.largacaixa.pt/"
+            xmlns:tns="http://ws.largacaixa.pt/"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+            <!--
+                O pedido da operação 'criarConteudo' recebe:
+                - o identificador do conteúdo
+                - o identificador da caixa onde o conteúdo deverá ser criado
+                - o preço do conteúdo
+                - os dados binários do conteúdo
+            -->
+            <xsd:element name="criarConteudo" type="tns:criarConteudoType"/>
+            <xsd:complexType name="criarConteudoType">
+                <xsd:sequence>
+                    <xsd:element name="cid" type="xsd:string"/>
+                    <xsd:element name="caixa" type="xsd:string"/>
+                    <xsd:element name="preco" type="xsd:int"/>
+                    <xsd:element name="dados" type="xsd:base64Binary"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'criarConteudo'
+                não devolve resultados
+            -->
+            <xsd:element name="criarConteudoResponse" type="tns:criarConteudoResponseType"/>
+            <xsd:complexType name="criarConteudoResponseType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                O pedido da operação 'apagarConteudo' recebe:
+                - o identificador do conteúdo
+                - o identificador da caixa onde o conteúdo deverá ser apagado
+            -->
+            <xsd:element name="apagarConteudo" type="tns:apagarConteudoType"/>
+            <xsd:complexType name="apagarConteudoType">
+                <xsd:sequence>
+                    <xsd:element name="cid" type="xsd:string"/>
+                    <xsd:element name="caixa" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'apagarConteudo'
+                não devolve resultados
+            -->
+            <xsd:element name="apagarConteudoResponse" type="tns:apagarConteudoResponseType"/>
+            <xsd:complexType name="apagarConteudoResponseType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                O pedido da operação 'listarConteudos' recebe:
+                - o identificador da caixa que se quer consultar
+            -->
+            <xsd:element name="listarConteudos" type="tns:listarConteudosType"/>
+            <xsd:complexType name="listarConteudosType">
+                <xsd:sequence>
+                    <xsd:element name="caixa" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'listarConteudos'
+                devolve uma lista de identificadores de conteúdos
+            -->
+            <xsd:element name="listarConteudosResponse" type="tns:listarConteudosResponseType"/>
+            <xsd:complexType name="listarConteudosResponseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="conteudo" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!--
+                O pedido da operação 'obterConteudo' recebe:
+                - o identificador do conteúdo
+                - o identificador da caixa onde o conteúdo deverá ser obtido
+            -->
+            <xsd:element name="obterConteudo" type="tns:obterConteudoType"/>
+            <xsd:complexType name="obterConteudoType">
+                <xsd:sequence>
+                    <xsd:element name="cid" type="xsd:string"/>
+                    <xsd:element name="caixa" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'obterConteudo'
+                devolve os dados binários do conteúdo
+            -->
+            <xsd:element name="obterConteudoResponse" type="tns:obterConteudoResponseType"/>
+            <xsd:complexType name="obterConteudoResponseType">
+                <xsd:sequence>
+                    <xsd:element name="dados" type="xsd:base64Binary"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!--
+                O pedido da operação 'partilharConteudo' recebe:
+                - o identificador do conteúdo
+                - o identificador da caixa de origem
+                - o identificador da caixa de destino
+                - o comprovativo de pagamento (tipo não especificado)
+            -->
+            <xsd:element name="partilharConteudo" type="tns:partilharConteudoType"/>
+            <xsd:complexType name="partilharConteudoType">
+                <xsd:sequence>
+                    <xsd:element name="cid" type="xsd:string"/>
+                    <xsd:element name="caixaOrigem" type="xsd:string"/>
+                    <xsd:element name="caixaDestino" type="xsd:string"/>
+                    <xsd:element name="comprovativoPagamento" type="xsd:anyType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <!--
+                A resposta normal da operação 'partilharConteudo'
+                não devolve resultados
+            -->
+            <xsd:element name="partilharConteudoResponse" type="tns:partilharConteudoResponseType"/>
+            <xsd:complexType name="partilharConteudoResponseType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                A resposta de erro 'ConteudoInvalido'
+                indica que os dados fornecidos para criar o conteúdo contêm algum erro.
+            -->
+            <xsd:element name="ConteudoInvalido" type="tns:ConteudoInvalidoType"/>
+            <xsd:complexType name="ConteudoInvalidoType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                A resposta de erro 'CaixaInexistente'
+                indica que a caixa indicada não existe.
+            -->
+            <xsd:element name="CaixaInexistente" type="tns:CaixaInexistenteType"/>
+            <xsd:complexType name="CaixaInexistenteType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                A resposta de erro 'ConteudoInexistenteNaCaixa'
+                indica que não foi possível encontrar o conteúdo pretendido na caixa indicada.
+                O conteúdo poderá existir noutras caixas.
+            -->
+            <xsd:element name="ConteudoInexistenteNaCaixa" type="tns:ConteudoInexistenteNaCaixaType"/>
+            <xsd:complexType name="ConteudoInexistenteNaCaixaType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+            <!--
+                A resposta de erro 'ComprovativoRejeitado'
+                indica que o comprovativo de pagamento foi rejeitado,
+                ou seja, não é aceite como prova de pagamento.
+            -->
+            <xsd:element name="ComprovativoRejeitado" type="tns:ComprovativoRejeitadoType"/>
+            <xsd:complexType name="ComprovativoRejeitadoType">
+                <xsd:sequence/>
+            </xsd:complexType>
+
+        </xsd:schema>
+    </wsdl:types>
+
+    <!--
+        As mensagens referenciam os elementos definidos no xsd:schema
+    -->
+    <wsdl:message name="criarConteudoResponse">
+        <wsdl:part element="tns:criarConteudoResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="criarConteudo">
+        <wsdl:part element="tns:criarConteudo" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="apagarConteudoResponse">
+        <wsdl:part element="tns:apagarConteudoResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="apagarConteudo">
+        <wsdl:part element="tns:apagarConteudo" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="listarConteudos">
+        <wsdl:part element="tns:listarConteudos" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="listarConteudosResponse">
+        <wsdl:part element="tns:listarConteudosResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="obterConteudo">
+        <wsdl:part element="tns:obterConteudo" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="obterConteudoResponse">
+        <wsdl:part element="tns:obterConteudoResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="partilharConteudo">
+        <wsdl:part element="tns:partilharConteudo" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="partilharConteudoResponse">
+        <wsdl:part element="tns:partilharConteudoResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="ConteudoInvalido">
+        <wsdl:part element="tns:ConteudoInvalido" name="ConteudoInvalido">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CaixaInexistente">
+        <wsdl:part element="tns:CaixaInexistente" name="CaixaInexistente">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ConteudoInexistenteNaCaixa">
+        <wsdl:part element="tns:ConteudoInexistenteNaCaixa" name="ConteudoInexistenteNaCaixa">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ComprovativoRejeitado">
+        <wsdl:part element="tns:ComprovativoRejeitado" name="ComprovativoRejeitado">
+        </wsdl:part>
+    </wsdl:message>
+
+    <!--
+        Definição das operações do serviço
+    -->
+    <wsdl:portType name="LargaCaixaPortType">
+        <!--
+            A operação 'criarConteudo' recebe os dados necessários para criar
+            um novo conteúdo e a caixa de utilizador onde deve ser criado.
+
+            O identificador do conteúdo é definido pelo cliente e 
+            deve ser globalmente único.
+            Os identificadores de conteúdos são textuais, sem espaços,
+            e apenas com caracteres alfabéticos e numéricos.
+
+            Se já existir um conteúdo com o mesmo identificador em alguma caixa
+            deve ser devolvido o erro ConteudoInvalido.
+
+            O identificador da caixa do utilizador indica
+            a que caixa o conteúdo deve ficar associado depois de criado.
+            Se a caixa indicada não existir,
+            deve ser devolvido o erro CaixaInexistente.
+
+            O preço indica se o conteúdo é gratuito (valor igual a 0)
+            ou pago (valor maior do que 0).
+            Se o preço for inferior a zero deve ser devolvido o erro ConteudoInvalido.
+
+            Finalmente são fornecidos os dados binários do conteúdo.
+            Se estiverem vazios deve ser devolvido o erro ConteudoInvalido.
+        -->
+        <wsdl:operation name="criarConteudo">
+            <wsdl:input message="tns:criarConteudo" name="criarConteudo">
+            </wsdl:input>
+            <wsdl:output message="tns:criarConteudoResponse" name="criarConteudoResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:ConteudoInvalido" name="ConteudoInvalido">
+            </wsdl:fault>
+            <wsdl:fault message="tns:CaixaInexistente" name="CaixaInexistente">
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!--
+            A operação 'apagarConteudo' recebe um identificador de conteúdo 
+            e a caixa de utilizador onde deve ser apagado.
+
+            Se a caixa indicada não existir,
+            deve ser devolvido o erro CaixaInexistente.
+
+            Se o conteúdo não estiver disponível na caixa indicada,
+            deve ser devolvido o erro ConteudoInexistenteNaCaixa.
+
+            Esta operação apenas tem efeitos na caixa indicada.
+        -->
+        <wsdl:operation name="apagarConteudo">
+            <wsdl:input message="tns:apagarConteudo" name="apagarConteudo">
+            </wsdl:input>
+            <wsdl:output message="tns:apagarConteudoResponse" name="apagarConteudoResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:CaixaInexistente" name="CaixaInexistente">
+            </wsdl:fault>
+            <wsdl:fault message="tns:ConteudoInexistenteNaCaixa" name="ConteudoInexistenteNaCaixa">
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!--
+            A operação 'listarConteudos' recebe o identificador de uma caixa e 
+            devolve a lista dos identificadores dos conteúdos acessíveis na caixa indicada.
+
+            Se a caixa indicada não existir,
+            deve ser devolvido o erro CaixaInexistente.
+        -->
+        <wsdl:operation name="listarConteudos">
+            <wsdl:input message="tns:listarConteudos" name="listarConteudos">
+            </wsdl:input>
+            <wsdl:output message="tns:listarConteudosResponse" name="listarConteudosResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:CaixaInexistente" name="CaixaInexistente">
+            </wsdl:fault>
+            <wsdl:fault message="tns:ConteudoInexistenteNaCaixa" name="ConteudoInexistenteNaCaixa">
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!--
+            A operação 'obterConteudo' recebe o identificador de um conteúdo
+            e o identificador de uma caixa e devolve os dados do conteúdo
+            caso estejam acessíveis na caixa indicada.
+
+            Se a caixa indicada não existir,
+            deve ser devolvido o erro CaixaInexistente.
+
+            Se o conteúdo não estiver disponível na caixa indicada,
+            deve ser devolvido o erro ConteudoInexistenteNaCaixa.
+        -->
+        <wsdl:operation name="obterConteudo">
+            <wsdl:input message="tns:obterConteudo" name="obterConteudo">
+            </wsdl:input>
+            <wsdl:output message="tns:obterConteudoResponse" name="obterConteudoResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:CaixaInexistente" name="CaixaInexistente">
+            </wsdl:fault>
+            <wsdl:fault message="tns:ConteudoInexistenteNaCaixa" name="ConteudoInexistenteNaCaixa">
+            </wsdl:fault>
+        </wsdl:operation>
+
+        <!--
+            A operação 'partilharConteudo' recebe o identificador de um conteúdo,
+            o identificador da caixa de origem e o identificador da caixa de destino.
+
+            Se o conteúdo estiver disponível na caixa de origem
+            e o comprovativo de pagamento for aceite
+            então o conteúdo passa a estar disponível na caixa de destino.
+
+            Se alguma das caixas indicadas não existir,
+            deve ser devolvido o erro CaixaInexistente.
+
+            Se o conteúdo não estiver disponível na caixa de origem,
+            deve ser devolvido o erro ConteudoInexistenteNaCaixa.
+
+            Se o comprovativo de pagamento não for aceite,
+            deve ser devolvido o erro ComprovativoRejeitado.
+        -->
+        <wsdl:operation name="partilharConteudo">
+            <wsdl:input message="tns:partilharConteudo" name="partilharConteudo">
+            </wsdl:input>
+            <wsdl:output message="tns:partilharConteudoResponse" name="partilharConteudoResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:CaixaInexistente" name="CaixaInexistente">
+            </wsdl:fault>
+            <wsdl:fault message="tns:ConteudoInexistenteNaCaixa" name="ConteudoInexistenteNaCaixa">
+            </wsdl:fault>
+            <wsdl:fault message="tns:ComprovativoRejeitado" name="ComprovativoRejeitado">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <!--
+        Vinculação das operações abstractas (descritas em wsdl:portType)
+        e operações concretas.
+        Neste caso, as operações devem ser invocadas através de mensagens SOAP
+        transmitidas sobre o protocolo HTTP (que por sua vez usa TCP/IP)
+    -->
+    <wsdl:binding name="LargaCaixaServiceSoapBinding" type="tns:LargaCaixaPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="criarConteudo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="criarConteudo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="criarConteudoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CaixaInexistente">
+                <soap:fault name="CaixaInexistente" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ConteudoInvalido">
+                <soap:fault name="ConteudoInvalido" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="apagarConteudo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="apagarConteudo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="apagarConteudoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CaixaInexistente">
+                <soap:fault name="CaixaInexistente" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ConteudoInexistenteNaCaixa">
+                <soap:fault name="ConteudoInexistenteNaCaixa" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="listarConteudos">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="listarConteudos">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="listarConteudosResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CaixaInexistente">
+                <soap:fault name="CaixaInexistente" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="obterConteudo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="obterConteudo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="obterConteudoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CaixaInexistente">
+                <soap:fault name="CaixaInexistente" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ConteudoInexistenteNaCaixa">
+                <soap:fault name="ConteudoInexistenteNaCaixa" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="partilharConteudo">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="partilharConteudo">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="partilharConteudoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="CaixaInexistente">
+                <soap:fault name="CaixaInexistente" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ComprovativoRejeitado">
+                <soap:fault name="ComprovativoRejeitado" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="ConteudoInexistenteNaCaixa">
+                <soap:fault name="ConteudoInexistenteNaCaixa" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <!--
+        LargaCaixa é um Web Service que mantém ficheiros partilhados
+        entre computadores e dispositivos móveis.
+        Cada utilizador tem uma caixa que dá acesso aos seus conteúdos.
+        Existem conteúdos gratuitos e conteúdos pagos.
+        Depois de adquiridos, os conteúdos são oportunamente entregues na caixa.
+    -->
+    <wsdl:service name="LargaCaixaService">
+        <!--
+            O URL abaixo é o endereço por omissão do Web Service.
+            No entanto o serviço pode e deve ser oferecido noutro endereço,
+            que deve ser descoberto dinamicamente através do UDDI.
+        -->
+        <wsdl:port binding="tns:LargaCaixaServiceSoapBinding" name="LargaCaixaPort">
+            <soap:address location="http://localhost:8080/largacaixa-ws/endpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

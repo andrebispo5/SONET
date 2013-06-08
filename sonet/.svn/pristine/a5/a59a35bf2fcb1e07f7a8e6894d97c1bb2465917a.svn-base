@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- The DOCTYPE declaration above will set the     -->
+<!-- browser's rendering engine into                -->
+<!-- "Standards Mode". Replacing this declaration   -->
+<!-- with a "Quirks Mode" doctype is not supported. -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!--                                                               -->
+    <!-- Consider inlining CSS to reduce the number of requested files -->
+    <!--                                                               -->
+    <link type="text/css" rel="stylesheet" href="SonetGWT.css">
+
+    <!--                                           -->
+    <!-- Any title is fine                         -->
+    <!--                                           -->
+    <title>Welcome to Sonet Presentation Service!!!</title>
+    
+    <!--                                           -->
+    <!-- This script loads your compiled module.   -->
+    <!-- If you add any GWT meta tags, they must   -->
+    <!-- be added before this line.                -->
+    <!--                                           -->
+    <script type="text/javascript" language="javascript" src="sonetgwt/sonetgwt.nocache.js"></script>
+  </head>
+<body style="background-image:url(http://2.bp.blogspot.com/_EPaXfNjld90/S9Q5WzosURI/AAAAAAAABaM/Z459gzLPlCo/s1600/Cloudy+BG+1200+px.jpg);">
+</body>
+  <!--                                           -->
+  <!-- The body can have arbitrary html, or      -->
+  <!-- you can leave the body empty if you want  -->
+  <!-- to create a completely dynamic UI.        -->
+  <!--                                           -->
+ 
+
+    <!-- OPTIONAL: include this if you want history support -->
+    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
+    
+    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div>
+    </noscript>
+
+
+	<table class="layout" cellspacing="0" width="100%" height="100%">
+		<tr>
+			<td colspan="2" class="header" id="header" height="40%">
+				<!--header-->
+			</td>
+		</tr>
+		<tr width="100%" height="60%">
+			<!-- left column represents the navigation bar -->
+			<td class="column" id="menu" width="30%">
+				<!--left column here-->
+			</td>
+			<!-- right column represents the actual page of Sonet -->
+			<td class="content" id="mainPanel" align="center" width="70%">
+				<!--content here-->
+			</td>
+		</tr>
+		<tr>
+			<footerStyle><td colspan="2" class="footer" id="footer" align="center" >
+			</footerStyle>
+		</tr>
+		
+	</table>
+	<div>
+	
+	</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+Projecto de Sistemas Distribuídos
+
+Segunda entrega - 2013-05-10 - 20h
+
+Grupo de SD 12
+
+Repositório A-02-12-14
+
+Andre Bispo		  66941	  andrefsbispo@hotmail.com 
+Diogo Pinto		  69905	  diogo.reis.pinto@gmail.com  
+Ricardo Leitao	69632 	ricardo.f.leitao@ist.utl.pt
+
+-------------------------------------------------------------------------------
+
+Instalação Serviço PagAmigo
+
+Instruções de instalação para Windows
+(Como colocar o projecto a funcionar)
+
+[1] Iniciar servidores de bases de dados, aplicacional e de nomes
+
+MySQL:
+> Para iniciar o mysql nos pcs dos laboratorios da rnl basta correr o ficheiro
+essd-env.bat.
+ 
+JBoss com opção para aceitar ligações externas:
+> start standalone -b 0.0.0.0
+
+JUDDI:
+> startup
+
+
+[2] Obter versão entregue
+
+cd temp
+mkdir proj
+cd proj
+
+svn co svn+ssh://ist1yyyyy@sigma.ist.utl.pt/afs/ist.utl.pt/groups/leic-es/svn/A-02-12-14/pagamigo/tags/R_2 pagamigo
+
+
+[3] Preparar bases de dados
+Executar os seguintes targets do build do bank-ws-server:
+-clean (limpa base de dados e classes compiladas)
+-build (compilar as classes do banco generico)
+-builds (compilar as classes dos banco em multi-deploy)
+-deploy (deploy do war do banco generico)
+-deploys (deploy do war dos bancos em multi-deploy e populate das respectivas bases de dados)
+
+[4] Activar impressão de mensagens
+As mensagens já vem impressas no JBOSS por definicao. 
+Mas no caso de ser necessario desactivar basta retirar o logginghandler do handler chain.
+
+
+[5] Construir e instalar servidores ...
+Para os bancos, os passos já foram realizados no ponto [3]
+Para o pagamigo-ws-ser executar sequencialmente os targets deste build:
+-wsimport (importa o wsdl do banco generico)
+-build    (Compila as classes do pagamigo-ws-ser)
+-deploy   (deploy do war do pagamigo)
+
+[6] Construir e instalar SoNet e outros clientes ...
+Targets do build da SoNet:
+-clean
+-clean-db
+-compile
+-populate
+-run
+-gwt-devmode-prepare
+-devmode-local
+
+Targets do build da certification-authority:
+-build
+-compile
+-deploy
+
+
+[7] Confirmar instalação ...
+Para os servidores basta ver o JBOSS e verificar se os deploys foram bem sucedido.
+Para verificar se as bases de dados estao bem criadas e inicializadas, usar o target
+do bank-ws-server, db-dump-1 e db-dump-2, e ver os valores impressos. 
+
+
+-------------------------------------------------------------------------------
+FIM

@@ -1,0 +1,8 @@
+Retrospectiva Sprint 3:
+		Relativamente à Sonet, a única alteração efectuada foi a adição dos dados de teste.
+		Relativamento ao PagAmigo, foram iniciadas as transacções neste sprint. Porém, existiram vários problemas na implementação das transacções, com erros não compreendidos pelos elementos do grupo, o que não permitiu a conclusão das tarefas relativas às transacçõoes. Por consequência, todas as tarefas previstas para a tolerância a faltas não foram cumpridas.
+		A encriptação dos certificados foi iniciada neste sprint mas também não foi possível completá-la visto existirem dúvidas na sua implementação que necessitaram de ser colocadas ao professor dos laboratórios.
+		Relativamente ao LargaCaixa, foi iniciada a implementação da comunicação entre servidores, 
+		sendo apenas possível criar alguns dos ficheiros necessários, pois para a sua conclusão é necessário tirar dúvidas e confirmar algumas ideias com o professor dos laboratórios.
+		Na 2ª parte do LargaCaixa, respeitante à geração e validação de certificados, foi estudado o método a aplicar, bem como quais as classes necessárias a ser implementadas. Toda a estrutura
+		mais exterior foi implementada, mas a maioria da implementação da funcionalidade não foi iniciada, pois alguma da matéria ainda não tinha sido abordada nas aulas, sendo urgente esclarecer duvidas com os professores. 

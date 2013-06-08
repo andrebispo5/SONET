@@ -1,0 +1,1440 @@
+<project name="jboss7-modules">
+   <!-- assumes jboss.dir property is defined elsewhere -->
+   <!-- generated Tue Feb 19 15:54:26 GMT 2013 -->
+
+   <path id="asm.asm">
+       <fileset dir="${jboss.dir}/modules/asm/asm/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="ch.qos.cal10n">
+       <fileset dir="${jboss.dir}/modules/ch/qos/cal10n/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.google.guava">
+       <fileset dir="${jboss.dir}/modules/com/google/guava/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.h2database.h2">
+       <fileset dir="${jboss.dir}/modules/com/h2database/h2/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.mysql.jdbc">
+       <fileset dir="${jboss.dir}/modules/com/mysql/jdbc/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.sun.jsf-impl.1.2">
+       <fileset dir="${jboss.dir}/modules/com/sun/jsf-impl/1.2">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.sun.jsf-impl">
+       <fileset dir="${jboss.dir}/modules/com/sun/jsf-impl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.sun.xml.bind">
+       <fileset dir="${jboss.dir}/modules/com/sun/xml/bind/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="com.sun.xml.messaging.saaj">
+       <fileset dir="${jboss.dir}/modules/com/sun/xml/messaging/saaj/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="gnu.getopt">
+       <fileset dir="${jboss.dir}/modules/gnu/getopt/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.activation.api">
+       <fileset dir="${jboss.dir}/modules/javax/activation/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.annotation.api">
+       <fileset dir="${jboss.dir}/modules/javax/annotation/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.ejb.api">
+       <fileset dir="${jboss.dir}/modules/javax/ejb/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.el.api">
+       <fileset dir="${jboss.dir}/modules/javax/el/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.enterprise.api">
+       <fileset dir="${jboss.dir}/modules/javax/enterprise/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.enterprise.deploy.api">
+       <fileset dir="${jboss.dir}/modules/javax/enterprise/deploy/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.faces.api.1.2">
+       <fileset dir="${jboss.dir}/modules/javax/faces/api/1.2">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.faces.api">
+       <fileset dir="${jboss.dir}/modules/javax/faces/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.inject.api">
+       <fileset dir="${jboss.dir}/modules/javax/inject/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.interceptor.api">
+       <fileset dir="${jboss.dir}/modules/javax/interceptor/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.jms.api">
+       <fileset dir="${jboss.dir}/modules/javax/jms/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.jws.api">
+       <fileset dir="${jboss.dir}/modules/javax/jws/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.mail.api">
+       <fileset dir="${jboss.dir}/modules/javax/mail/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.management.j2ee.api">
+       <fileset dir="${jboss.dir}/modules/javax/management/j2ee/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.persistence.api">
+       <fileset dir="${jboss.dir}/modules/javax/persistence/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.resource.api">
+       <fileset dir="${jboss.dir}/modules/javax/resource/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.rmi.api">
+       <fileset dir="${jboss.dir}/modules/javax/rmi/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.security.auth.message.api">
+       <fileset dir="${jboss.dir}/modules/javax/security/auth/message/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.security.jacc.api">
+       <fileset dir="${jboss.dir}/modules/javax/security/jacc/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.servlet.api">
+       <fileset dir="${jboss.dir}/modules/javax/servlet/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.servlet.jsp.api">
+       <fileset dir="${jboss.dir}/modules/javax/servlet/jsp/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.servlet.jstl.api">
+       <fileset dir="${jboss.dir}/modules/javax/servlet/jstl/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.transaction.api">
+       <fileset dir="${jboss.dir}/modules/javax/transaction/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.validation.api">
+       <fileset dir="${jboss.dir}/modules/javax/validation/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.ws.rs.api">
+       <fileset dir="${jboss.dir}/modules/javax/ws/rs/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.wsdl4j.api">
+       <fileset dir="${jboss.dir}/modules/javax/wsdl4j/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.xml.bind.api">
+       <fileset dir="${jboss.dir}/modules/javax/xml/bind/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.xml.registry.api">
+       <fileset dir="${jboss.dir}/modules/javax/xml/registry/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.xml.rpc.api">
+       <fileset dir="${jboss.dir}/modules/javax/xml/rpc/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.xml.soap.api">
+       <fileset dir="${jboss.dir}/modules/javax/xml/soap/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="javax.xml.ws.api">
+       <fileset dir="${jboss.dir}/modules/javax/xml/ws/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="jline">
+       <fileset dir="${jboss.dir}/modules/jline/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="net.jcip">
+       <fileset dir="${jboss.dir}/modules/net/jcip/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="net.sourceforge.cssparser">
+       <fileset dir="${jboss.dir}/modules/net/sourceforge/cssparser/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="net.sourceforge.nekohtml">
+       <fileset dir="${jboss.dir}/modules/net/sourceforge/nekohtml/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="nu.xom">
+       <fileset dir="${jboss.dir}/modules/nu/xom/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.antlr">
+       <fileset dir="${jboss.dir}/modules/org/antlr/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.beanutils">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/beanutils/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.cli">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/cli/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.codec">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/codec/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.collections">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/collections/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.configuration">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/configuration/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.io">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/io/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.lang">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/lang/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.commons.pool">
+       <fileset dir="${jboss.dir}/modules/org/apache/commons/pool/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.cxf">
+       <fileset dir="${jboss.dir}/modules/org/apache/cxf/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.derby">
+       <fileset dir="${jboss.dir}/modules/org/apache/derby/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.httpcomponents">
+       <fileset dir="${jboss.dir}/modules/org/apache/httpcomponents/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.james.mime4j">
+       <fileset dir="${jboss.dir}/modules/org/apache/james/mime4j/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.juddi.juddi-client">
+       <fileset dir="${jboss.dir}/modules/org/apache/juddi/juddi-client/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.juddi.scout">
+       <fileset dir="${jboss.dir}/modules/org/apache/juddi/scout/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.juddi.uddi-ws">
+       <fileset dir="${jboss.dir}/modules/org/apache/juddi/uddi-ws/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.log4j">
+       <fileset dir="${jboss.dir}/modules/org/apache/log4j/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.neethi">
+       <fileset dir="${jboss.dir}/modules/org/apache/neethi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.santuario.xmlsec">
+       <fileset dir="${jboss.dir}/modules/org/apache/santuario/xmlsec/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.velocity">
+       <fileset dir="${jboss.dir}/modules/org/apache/velocity/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.ws.security">
+       <fileset dir="${jboss.dir}/modules/org/apache/ws/security/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.ws.xmlschema">
+       <fileset dir="${jboss.dir}/modules/org/apache/ws/xmlschema/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.xalan">
+       <fileset dir="${jboss.dir}/modules/org/apache/xalan/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.xerces">
+       <fileset dir="${jboss.dir}/modules/org/apache/xerces/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.apache.xml-resolver">
+       <fileset dir="${jboss.dir}/modules/org/apache/xml-resolver/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.codehaus.jackson.jackson-core-asl">
+       <fileset dir="${jboss.dir}/modules/org/codehaus/jackson/jackson-core-asl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.codehaus.jackson.jackson-jaxrs">
+       <fileset dir="${jboss.dir}/modules/org/codehaus/jackson/jackson-jaxrs/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.codehaus.jackson.jackson-mapper-asl">
+       <fileset dir="${jboss.dir}/modules/org/codehaus/jackson/jackson-mapper-asl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.codehaus.jackson.jackson-xc">
+       <fileset dir="${jboss.dir}/modules/org/codehaus/jackson/jackson-xc/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.codehaus.jettison">
+       <fileset dir="${jboss.dir}/modules/org/codehaus/jettison/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.codehaus.woodstox">
+       <fileset dir="${jboss.dir}/modules/org/codehaus/woodstox/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.dom4j">
+       <fileset dir="${jboss.dir}/modules/org/dom4j/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.hibernate.envers">
+       <fileset dir="${jboss.dir}/modules/org/hibernate/envers/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.hibernate">
+       <fileset dir="${jboss.dir}/modules/org/hibernate/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.hibernate.validator">
+       <fileset dir="${jboss.dir}/modules/org/hibernate/validator/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.hornetq">
+       <fileset dir="${jboss.dir}/modules/org/hornetq/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.hornetq.ra">
+       <fileset dir="${jboss.dir}/modules/org/hornetq/ra/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.infinispan.cachestore.jdbc">
+       <fileset dir="${jboss.dir}/modules/org/infinispan/cachestore/jdbc/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.infinispan.cachestore.remote">
+       <fileset dir="${jboss.dir}/modules/org/infinispan/cachestore/remote/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.infinispan.client.hotrod">
+       <fileset dir="${jboss.dir}/modules/org/infinispan/client/hotrod/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.infinispan">
+       <fileset dir="${jboss.dir}/modules/org/infinispan/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jacorb">
+       <fileset dir="${jboss.dir}/modules/org/jacorb/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.javassist">
+       <fileset dir="${jboss.dir}/modules/org/javassist/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jaxen">
+       <fileset dir="${jboss.dir}/modules/org/jaxen/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.appclient">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/appclient/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.cli">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/cli/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.api">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.common">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/common/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.ejb3.infinispan">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/ejb3/infinispan/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.impl">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/impl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.infinispan">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/infinispan/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.jgroups">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/jgroups/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.registry">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/registry/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.service">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/service/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.singleton">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/singleton/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.web.infinispan">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/web/infinispan/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.clustering.web.spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/clustering/web/spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.cmp">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/cmp/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.configadmin">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/configadmin/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.connector">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/connector/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.console">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/console/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.controller">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/controller/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.controller-client">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/controller-client/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.deployment-repository">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/deployment-repository/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.deployment-scanner">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/deployment-scanner/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.domain-http-error-context">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/domain-http-error-context/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.domain-http-interface">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/domain-http-interface/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.domain-management">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/domain-management/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.ee.deployment">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/ee/deployment/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.ee">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/ee/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.ejb3">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/ejb3/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.embedded">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/embedded/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.host-controller">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/host-controller/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jacorb">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jacorb/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jaxr">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jaxr/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jaxrs">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jaxrs/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jdr">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jdr/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jmx">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jmx/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jpa.hibernate.3">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jpa/hibernate/3">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jpa.hibernate.4">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jpa/hibernate/4">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jpa">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jpa/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jpa.openjpa">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jpa/openjpa/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jpa.spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jpa/spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jpa.util">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jpa/util/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.jsr77">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/jsr77/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.logging">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/logging/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.mail">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/mail/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.management-client-content">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/management-client-content/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.messaging">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/messaging/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.modcluster">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/modcluster/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.naming">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/naming/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.network">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/network/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.osgi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/osgi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.platform-mbean">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/platform-mbean/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.pojo">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/pojo/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.process-controller">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/process-controller/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.protocol">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/protocol/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.remoting">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/remoting/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.sar">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/sar/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.security">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/security/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.server">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/server/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.threads">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/threads/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.transactions">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/transactions/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.web">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/web/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.webservices">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/webservices/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.weld">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/weld/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.as.xts">
+       <fileset dir="${jboss.dir}/modules/org/jboss/as/xts/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.classfilewriter">
+       <fileset dir="${jboss.dir}/modules/org/jboss/classfilewriter/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.com.sun.httpserver">
+       <fileset dir="${jboss.dir}/modules/org/jboss/com/sun/httpserver/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.common-core">
+       <fileset dir="${jboss.dir}/modules/org/jboss/common-core/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.dmr">
+       <fileset dir="${jboss.dir}/modules/org/jboss/dmr/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ejb-client">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ejb-client/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ejb3">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ejb3/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.iiop-client">
+       <fileset dir="${jboss.dir}/modules/org/jboss/iiop-client/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.integration.ext-content.main.bundled">
+       <fileset dir="${jboss.dir}/modules/org/jboss/integration/ext-content/main/bundled">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.interceptor">
+       <fileset dir="${jboss.dir}/modules/org/jboss/interceptor/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.interceptor.spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/interceptor/spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.invocation">
+       <fileset dir="${jboss.dir}/modules/org/jboss/invocation/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ironjacamar.api">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ironjacamar/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ironjacamar.impl">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ironjacamar/impl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ironjacamar.jdbcadapters">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ironjacamar/jdbcadapters/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.jandex">
+       <fileset dir="${jboss.dir}/modules/org/jboss/jandex/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.jaxbintros">
+       <fileset dir="${jboss.dir}/modules/org/jboss/jaxbintros/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.jboss-transaction-spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/jboss-transaction-spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.jts.integration">
+       <fileset dir="${jboss.dir}/modules/org/jboss/jts/integration/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.jts">
+       <fileset dir="${jboss.dir}/modules/org/jboss/jts/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.logging.jul-to-slf4j-stub">
+       <fileset dir="${jboss.dir}/modules/org/jboss/logging/jul-to-slf4j-stub/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.logging">
+       <fileset dir="${jboss.dir}/modules/org/jboss/logging/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.logmanager.log4j">
+       <fileset dir="${jboss.dir}/modules/org/jboss/logmanager/log4j/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.logmanager">
+       <fileset dir="${jboss.dir}/modules/org/jboss/logmanager/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.marshalling">
+       <fileset dir="${jboss.dir}/modules/org/jboss/marshalling/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.marshalling.river">
+       <fileset dir="${jboss.dir}/modules/org/jboss/marshalling/river/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.metadata">
+       <fileset dir="${jboss.dir}/modules/org/jboss/metadata/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.msc">
+       <fileset dir="${jboss.dir}/modules/org/jboss/msc/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.netty">
+       <fileset dir="${jboss.dir}/modules/org/jboss/netty/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.osgi.framework">
+       <fileset dir="${jboss.dir}/modules/org/jboss/osgi/framework/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.osgi.metadata">
+       <fileset dir="${jboss.dir}/modules/org/jboss/osgi/metadata/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.osgi.repository">
+       <fileset dir="${jboss.dir}/modules/org/jboss/osgi/repository/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.osgi.spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/osgi/spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.osgi.vfs">
+       <fileset dir="${jboss.dir}/modules/org/jboss/osgi/vfs/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.remote-naming">
+       <fileset dir="${jboss.dir}/modules/org/jboss/remote-naming/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.remoting3">
+       <fileset dir="${jboss.dir}/modules/org/jboss/remoting3/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.remoting3.remoting-jmx">
+       <fileset dir="${jboss.dir}/modules/org/jboss/remoting3/remoting-jmx/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-atom-provider">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-atom-provider/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-cdi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-cdi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-jackson-provider">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-jackson-provider/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-jaxb-provider">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-jaxb-provider/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-jaxrs">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-jaxrs/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-jettison-provider">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-jettison-provider/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-jsapi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-jsapi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-multipart-provider">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-multipart-provider/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.resteasy.resteasy-yaml-provider">
+       <fileset dir="${jboss.dir}/modules/org/jboss/resteasy/resteasy-yaml-provider/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.sasl">
+       <fileset dir="${jboss.dir}/modules/org/jboss/sasl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.security.negotiation">
+       <fileset dir="${jboss.dir}/modules/org/jboss/security/negotiation/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.security.xacml">
+       <fileset dir="${jboss.dir}/modules/org/jboss/security/xacml/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.shrinkwrap.core">
+       <fileset dir="${jboss.dir}/modules/org/jboss/shrinkwrap/core/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.staxmapper">
+       <fileset dir="${jboss.dir}/modules/org/jboss/staxmapper/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.stdio">
+       <fileset dir="${jboss.dir}/modules/org/jboss/stdio/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.threads">
+       <fileset dir="${jboss.dir}/modules/org/jboss/threads/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.vfs">
+       <fileset dir="${jboss.dir}/modules/org/jboss/vfs/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.weld.api">
+       <fileset dir="${jboss.dir}/modules/org/jboss/weld/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.weld.core">
+       <fileset dir="${jboss.dir}/modules/org/jboss/weld/core/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.weld.spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/weld/spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.api">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/api/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.common">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/common/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.cxf.jbossws-cxf-factories">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/cxf/jbossws-cxf-factories/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.cxf.jbossws-cxf-server">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/cxf/jbossws-cxf-server/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.cxf.jbossws-cxf-transports-httpserver">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/cxf/jbossws-cxf-transports-httpserver/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.jaxws-client">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/jaxws-client/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.jaxws-jboss-httpserver-httpspi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/jaxws-jboss-httpserver-httpspi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.native.jbossws-native-core">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/native/jbossws-native-core/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.native.jbossws-native-factories">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/native/jbossws-native-factories/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.native.jbossws-native-services">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/native/jbossws-native-services/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.spi">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/spi/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.ws.tools.common">
+       <fileset dir="${jboss.dir}/modules/org/jboss/ws/tools/common/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.xb">
+       <fileset dir="${jboss.dir}/modules/org/jboss/xb/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.xnio">
+       <fileset dir="${jboss.dir}/modules/org/jboss/xnio/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.xnio.nio">
+       <fileset dir="${jboss.dir}/modules/org/jboss/xnio/nio/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jboss.xts">
+       <fileset dir="${jboss.dir}/modules/org/jboss/xts/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jdom">
+       <fileset dir="${jboss.dir}/modules/org/jdom/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.jgroups">
+       <fileset dir="${jboss.dir}/modules/org/jgroups/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.joda.time">
+       <fileset dir="${jboss.dir}/modules/org/joda/time/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.osgi.core">
+       <fileset dir="${jboss.dir}/modules/org/osgi/core/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.picketbox">
+       <fileset dir="${jboss.dir}/modules/org/picketbox/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.picketlink">
+       <fileset dir="${jboss.dir}/modules/org/picketlink/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.python.jython.standalone">
+       <fileset dir="${jboss.dir}/modules/org/python/jython/standalone/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.scannotation.scannotation">
+       <fileset dir="${jboss.dir}/modules/org/scannotation/scannotation/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.slf4j.ext">
+       <fileset dir="${jboss.dir}/modules/org/slf4j/ext/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.slf4j.impl">
+       <fileset dir="${jboss.dir}/modules/org/slf4j/impl/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.slf4j.jcl-over-slf4j">
+       <fileset dir="${jboss.dir}/modules/org/slf4j/jcl-over-slf4j/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.slf4j">
+       <fileset dir="${jboss.dir}/modules/org/slf4j/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.w3c.css.sac">
+       <fileset dir="${jboss.dir}/modules/org/w3c/css/sac/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+   <path id="org.yaml.snakeyaml">
+       <fileset dir="${jboss.dir}/modules/org/yaml/snakeyaml/main">
+           <include name="*.jar"/>
+       </fileset>
+   </path>
+
+
+</project>

@@ -1,0 +1,112 @@
+package pt.ist.sonet.domain;
+
+
+enum pt.ist.sonet.domain.Permission as Permission;
+
+class Sonet {
+	Integer friendLimit;
+	Integer polemicPubLimit;
+    Integer idCounter;
+}
+
+
+class Agent {
+	Permission permission;
+    String username;
+    String name;
+    String email;
+    String city;
+    String country;
+    String password;
+}
+
+
+class Individual extends Agent;
+
+class Organization extends Agent;
+
+
+
+class Publication {
+    Integer id;
+    String caption;
+    Integer scorePlus;
+	Integer scoreMinus;
+}
+
+class Note extends Publication {
+	String text;
+}
+
+class Url extends Publication {
+	String url;
+	Integer price;
+}
+
+class Comment{
+	Integer id;
+	String agentName;
+	String text;
+}
+
+
+relation PublicationsContainsComments {
+	Publication playsRole publication;
+	Comment playsRole comment{
+		multiplicity *;
+	}
+}
+
+relation PublicationsContainsAgent {
+	Publication playsRole pub;
+	Agent playsRole voters {
+		multiplicity *;
+	}
+}
+
+relation SonetContainsAgents {
+    Sonet playsRole sonet;
+    Agent playsRole agent {
+        multiplicity *;
+    }
+}
+
+
+relation AgentContainsPublications {
+    Agent playsRole agent;
+    Publication playsRole publication {
+        multiplicity *;
+    }
+}
+relation SonetContainsPublications {
+    Sonet playsRole sonet;
+    Publication playsRole publication {
+        multiplicity *;
+    }
+}
+
+relation AgentContainsFriends {
+	Agent playsRole friendList{
+		multiplicity *;
+		}
+	Agent playsRole friends{
+		multiplicity *;
+	}
+}
+
+
+relation AgentContainsBlockedAgent{
+	Agent playsRole blockedList;
+	Agent playsRole blocks{
+		multiplicity *;
+	}
+}
+
+relation AgentContainsFriendRequests{
+	Agent playsRole requestList;
+	Agent playsRole requests{
+		multiplicity *;
+	}
+}
+
+

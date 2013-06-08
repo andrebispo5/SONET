@@ -1,0 +1,155 @@
+<project name="jboss7">
+
+    <property environment="env"/>
+    <property name="jboss.dir" location="${env.JBOSS_HOME}" />
+
+    <property name="jboss.deploy.dir" value="${jboss.dir}/standalone/deployments" />
+
+    <!-- credits: oleh http://stackoverflow.com/a/10569905 -->
+    <target name="deploy"
+        description="Deploy web application">
+        <!-- property checks -->
+        <fail unless="war.file" message="Please define WAR file!" />
+        <condition property="war.file.available">
+            <available file="${war.file}" />
+        </condition>
+        <fail unless="war.file.available" message="WAR file does not exist!${line.separator}You must create it before trying to deploy." />
+
+        <!-- Build path for deployed war-file -->
+        <property name="deployed.war" value="${jboss.deploy.dir}/${war.filename}" />
+
+        <!-- remove current deployed war -->
+        <delete file="${deployed.war}.deployed" failonerror="false" />
+        <waitfor maxwait="10" maxwaitunit="second">
+            <available file="${deployed.war}.undeployed" />
+        </waitfor>
+        <delete dir="${deployed.war}" />
+
+        <!-- copy war-file -->
+        <copy file="${war.file}" todir="${jboss.deploy.dir}" />
+
+        <!-- start deployment -->
+        <echo>Start deployment ...</echo>
+        <touch file="${deployed.war}.dodeploy" />
+
+        <!-- wait for deployment to complete -->
+        <waitfor maxwait="5" maxwaitunit="second">
+            <available file="${deployed.war}.deployed" />
+        </waitfor>
+        <echo>Deployment done. See JBoss log for more details.</echo>
+    </target>
+
+    <!-- credits: codemiller http://stackoverflow.com/a/12188923 -->
+    <target name="undeploy"
+        description="Undeploy web application">
+        <fail unless="war.filename" message="Please define WAR file name" />
+
+        <delete file="${jboss.deploy.dir}/${war.filename}.deployed" />
+    </target>
+
+    <!--target name="redeploy" depends="undeploy,deploy"
+        description="Undeploy and deploy web application" /-->
+
+    <!-- Module groupings -->
+    <import file="jboss7-modules.xml" />
+
+    <!-- Java Enterprise -->
+
+    <path id="javax.security">
+        <path refid="javax.security.auth.message.api" />
+        <path refid="javax.security.jacc.api" />
+    </path>
+
+    <path id="javax.xml">
+        <path refid="javax.xml.bind.api" />
+        <path refid="javax.xml.registry.api" />
+        <!--path refid="javax.xml.rpc.api" /-->
+        <path refid="javax.xml.soap.api" />
+        <path refid="javax.xml.ws.api" />
+        <path refid="javax.ws.rs.api" />
+    </path>
+
+    <!-- reference: http://www.mastertheboss.com/jboss-as-7/jboss-as-7-classloading -->
+    <path id="jee">
+        <!-- always added -->
+        <path refid="javax.activation.api" />
+        <path refid="javax.annotation.api" />
+        <path refid="javax.jms.api" />
+        <path refid="javax.security" />
+        <path refid="javax.transaction.api" />
+        <path refid="javax.jws.api" />
+        <path refid="javax.xml" />
+        <!-- by condition -->
+        <path refid="javax.ejb.api" />
+        <path refid="javax.persistence.api" />
+        <path refid="org.jboss.as.web" />
+        <path refid="org.jboss.as.weld" />
+    </path>
+
+    <!-- RESTEasy -->
+    <path id="org.jboss.resteasy">
+        <path refid="org.jboss.resteasy.resteasy-atom-provider" />
+        <path refid="org.jboss.resteasy.resteasy-cdi" />
+        <path refid="org.jboss.resteasy.resteasy-jackson-provider" />
+        <path refid="org.jboss.resteasy.resteasy-jaxb-provider" />
+        <path refid="org.jboss.resteasy.resteasy-jaxrs" />
+        <path refid="org.jboss.resteasy.resteasy-jettison-provider" />
+        <path refid="org.jboss.resteasy.resteasy-jsapi" />
+        <path refid="org.jboss.resteasy.resteasy-multipart-provider" />
+        <path refid="org.jboss.resteasy.resteasy-yaml-provider" />
+    </path>
+
+    <!-- Hibernate -->
+
+    <path id="org.hibernate">
+        <path refid="org.hibernate" />
+        <path refid="org.hibernate.validator" />
+        <path refid="org.hibernate.envers" />
+        <!--path refid="org.jboss.as.jpa.hibernate.3" /-->
+        <path refid="org.jboss.as.jpa.hibernate.4" />
+    </path>
+
+    <!-- Java XML -->
+
+    <path id="jax">
+        <path refid="com.sun.xml.bind" />
+        <path refid="com.sun.xml.messaging.saaj" />
+        <path refid="org.jboss.as.jaxr" />
+        <path refid="javax.wsdl4j.api" />
+    </path>
+
+    <!-- JBoss Web Services -->
+
+    <path id="jboss-ws">
+        <path refid="org.jboss.ws.api" />
+        <path refid="org.jboss.ws.common" />
+        <path refid="org.jboss.ws.cxf.jbossws-cxf-factories" />
+        <path refid="org.jboss.ws.cxf.jbossws-cxf-server" />
+        <path refid="org.jboss.ws.cxf.jbossws-cxf-transports-httpserver" />
+        <path refid="org.jboss.ws.jaxws-client" />
+        <path refid="org.jboss.ws.jaxws-jboss-httpserver-httpspi" />
+        <path refid="org.jboss.ws.native.jbossws-native-core" />
+        <path refid="org.jboss.ws.native.jbossws-native-factories" />
+        <path refid="org.jboss.ws.native.jbossws-native-services" />
+        <path refid="org.jboss.ws.spi" />
+        <path refid="org.jboss.ws.tools.common" />
+    </path>
+    
+    <!-- wsconsume -->
+    <path id="jboss-wsconsume">
+		<path refid="org.jboss.ws.tools.common" />
+		<path refid="org.jboss.ws.api" />
+		<path refid="org.jboss.ws.jaxws-client" />
+		<path refid="javax.wsdl4j.api" />
+		<path refid="com.sun.xml.bind" />
+		<path refid="org.apache.ws.xmlschema" />
+		<path refid="org.apache.neethi" />
+		<path refid="org.apache.cxf" />
+		<path refid="org.apache.velocity" />
+		<path refid="org.apache.commons.collections" />
+		<path refid="org.apache.commons.lang" />
+		<path refid="org.apache.log4j" />
+		<path refid="gnu.getopt" />
+    </path>
+
+</project>

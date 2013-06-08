@@ -1,0 +1,316 @@
+	<project name="bank-ws-server" default="build" basedir=".">
+
+		<description>JBoss Java Web Service build file - contract first</description>
+
+		<import file="jboss7.xml" />
+
+		<!-- properties and paths -->
+		<property name="src.dir" location="src" />
+		<property name="web.dir" location="WebContent" />
+		<property name="build.dir" location="build" />
+		<property name="build.classes.dir" location="${build.dir}/classes" />
+		
+		
+
+		<path id="project.classpath">
+			<pathelement location="${build.classes.dir}" />
+	        <path refid="javax.servlet.api" />
+	        <path refid="javax.xml.registry.api" />
+			<path refid="com.mysql.jdbc" />
+		</path>
+		
+		<!-- This property defines the instance identifier.
+		         By default it is empty. It can be redefined using ant -D or using antcall inside a target -->
+	    <property name="instance" value="" />	
+
+	    <property name="war.filename" value="${ant.project.name}${instance}.war" />
+	    <property name="war.file" value="${build.dir}/${war.filename}" />
+
+		<target name="show"
+	        description="Show property values" >
+			<echo message="ant.project.name = ${ant.project.name}" />
+			<echo message="" />
+			<echo message="src.dir = ${src.dir}" />
+			<echo message="web.dir = ${web.dir}" />
+			<echo message="build.dir = ${build.dir}" />
+			<echo message="build.classes.dir = ${build.classes.dir}" />
+			<echo message="" />
+			<pathconvert property="project.classpath" refid="project.classpath" />
+			<echo message="project.classpath = ${project.classpath}" />
+			<echo message="" />
+			<echo message="war.filename = ${war.filename}" />
+			<echo message="war.file = ${war.file}" />
+		</target>
+
+		<!-- targets -->
+
+		<target name="init">
+			<mkdir dir="${build.dir}" />
+			<mkdir dir="${build.classes.dir}" />
+		</target>
+
+		<target name="clean"
+	        description="Delete build directory"
+			depends="db-clean-ALL">
+			<delete dir="${build.dir}" />
+		</target>
+		
+		<target name="prepare-resources" depends="init">
+			<!-- description="Prepare application resource files" -->
+			<copy todir="${build.classes.dir}" overwrite="true">
+				<fileset dir="${src.dir}" excludes="**/*.java" />
+			</copy>
+			<replace dir="${build.classes.dir}" excludes="**/*.class" summary="true">
+				<replacefilter token="@example-token@" value="${example-property}" />
+			</replace>
+		</target>
+		
+		<!-- Database properties and paths -->
+		
+		<property name="sql.driver" value="com.mysql.jdbc.Driver"/>
+
+			    <property name="sql.host" value="localhost"/>
+			    <property name="sql.port" value="3306"/>
+			    <property name="sql.url" value="jdbc:mysql://${sql.host}:${sql.port}" />
+
+			    <property name="sql.admin.user" value="root"/>
+			    <property name="sql.admin.pass" value=""/>
+
+			    <property name="sql.db" value="testdb${instance}"/>
+			    <property name="sql.db.url" value="${sql.url}/${sql.db}" />
+				<property name="sql.db.url1" value="${sql.url}/testdb1" />
+				<property name="sql.db.url2" value="${sql.url}/testdb2" />
+
+			    <property name="sql.user" value="${sql.db}user"/>
+			    <property name="sql.pass" value="${sql.db}pass"/>
+
+		   
+		
+		<!-- - - - - - - - - [ M y S Q L   d a t a b a s e ] - - - - - - - - - -->
+
+		    <target name="db-create">
+		        <echo message="Creating SQL database '${sql.db.url}'"/>
+		        <sql driver="${sql.driver}" url="${sql.url}"
+		             userid="${sql.admin.user}" password="${sql.admin.pass}">
+		            <classpath refid="com.mysql.jdbc"/>
+		            CREATE DATABASE IF NOT EXISTS ${sql.db};
+		        	
+
+		            USE ${sql.db};
+
+		            CREATE TABLE ACCOUNTS (
+		               ACCOUNTID varchar(20) not null,
+		               BALANCE bigint unsigned not null,
+		               primary key (ACCOUNTID)
+		            );
+		        </sql>
+		    </target>
+
+		    <target name="db-populate-1">
+		        <echo message="Populating SQL database '${sql.url}/testdb1'"/>
+		        <sql driver="${sql.driver}" url="${sql.url}/testdb1"
+		             userid="${sql.user}" password="${sql.pass}">
+		            <classpath refid="com.mysql.jdbc"/>
+		            INSERT INTO ACCOUNTS VALUES ("001", 10),
+		                                       ("002", 20),
+		                                       ("003", 30),
+		        								("004", 40),
+		        			                    ("005", 50),
+		        								("006", 60),
+		        								("007", 70),
+		        			        			("008", 80),
+		        			        			("009", 90),
+		        			        			("010", 0);
+		        </sql>
+		    </target>
+		
+		<target name="db-populate-2">
+			        <echo message="Populating SQL database '${sql.url}/testdb2'"/>
+			        <sql driver="${sql.driver}" url="${sql.url}/testdb2"
+			             userid="${sql.user}" password="${sql.pass}">
+			            <classpath refid="com.mysql.jdbc"/>
+			        	INSERT INTO ACCOUNTS VALUES ("001", 10),
+			        			                    ("002", 20),
+			        			                    ("003", 30),
+			        			       				("004", 40),
+			        			        			("005", 50),
+			        			        			("006", 60),
+			        			        			("007", 70),
+			        			        			("008", 80),
+			        			        			("009", 90),
+			        			        			("010", 0);
+			            
+			        </sql>
+			    </target>
+
+		    <target name="db-dump-1"
+		            description="Print table contents">
+		        <echo message="Selecting all tables from '${sql.db}'"/>
+		        <sql driver="${sql.driver}" url="${sql.db.url1}" print="true"
+		             userid="${sql.admin.user}" password="${sql.admin.pass}">
+		            <classpath refid="com.mysql.jdbc"/>
+		            SELECT * FROM testdb1.ACCOUNTS;
+		        </sql>
+		    </target>
+		
+		
+		
+		<target name="db-dump-2"
+				            description="Print Bank 2 Database contents">
+				        <echo message="Selecting all tables from '${sql.db}'"/>
+						<sql driver="${sql.driver}" url="${sql.db.url2}" print="true"
+							  userid="${sql.admin.user}" password="${sql.admin.pass}">
+							  <classpath refid="com.mysql.jdbc"/>
+							  SELECT * FROM testdb2.ACCOUNTS;
+							  SELECT * FROM testdb2.TRANSACTIONS;
+						</sql>
+		</target>
+
+		    <!-- - - - - - - - - - - [ M y S Q L   u s e r ] - - - - - - - - - - - -->
+
+		    <target name="dbuser-create">
+		        <echo message="Creating SQL user '${sql.user}' with password '${sql.pass}'"/>
+		        <sql driver="${sql.driver}" url="${sql.url}"
+		             userid="${sql.admin.user}" password="${sql.admin.pass}">
+		            <classpath refid="com.mysql.jdbc"/>
+		            CREATE USER '${sql.user}'@'${sql.host}' IDENTIFIED BY '${sql.pass}';
+		        </sql>
+		    </target>
+
+		    <target name="dbuser-grant">
+		        <echo message="Grating SQL DB permissions to '${sql.user}'@'${sql.host}' "/>
+		        <sql driver="${sql.driver}" url="${sql.url}"
+		             userid="${sql.admin.user}" password="${sql.admin.pass}">
+		            <classpath refid="com.mysql.jdbc"/>
+		            GRANT USAGE
+		            ON *.*
+		            TO '${sql.user}'@'${sql.host}';
+
+		            GRANT ALL PRIVILEGES
+		            ON ${sql.db}.*
+		            TO '${sql.user}'@'${sql.host}';
+		        </sql>
+		    </target>
+
+		    <!-- - - - - - - - - - - [ M y S Q L   m a i n ] - - - - - - - - - - - -->
+
+		<target name="db-build-1"
+			            depends="dbuser-create,dbuser-grant,db-create,db-populate-1"
+			            description="Build database for BANK1"/>
+		
+		<target name="db-build-2"
+			            depends="dbuser-create,dbuser-grant,db-create,db-populate-2"
+			            description="Build database for BANK2"/>
+
+		<target name="db-clean-ALL">
+				        <sql driver="${sql.driver}" url="${sql.url}"
+				             userid="${sql.admin.user}" password="${sql.admin.pass}">
+				            <classpath refid="com.mysql.jdbc"/>
+				            DROP DATABASE IF EXISTS testdb1;
+				        	DROP DATABASE IF EXISTS testdb2;
+				        	DROP DATABASE IF EXISTS testdb;
+				        	GRANT USAGE ON *.* TO 'testdb1user'@'localhost';
+				        	DROP USER 'testdb1user'@'localhost';
+				        	GRANT USAGE ON *.* TO 'testdb2user'@'localhost';
+				        	DROP USER 'testdb2user'@'localhost';
+				        	GRANT USAGE ON *.* TO 'testdbuser'@'localhost';
+				        	DROP USER 'testdbuser'@'localhost';
+				          
+				        </sql>
+				    </target>
+		
+			
+
+
+		<target name="compile" depends="init,prepare-resources"
+	        description="Compile source code" >
+			<javac srcdir="${src.dir}"
+	            destdir="${build.classes.dir}"
+	            includeantruntime="false" debug="true">
+				<classpath refid="project.classpath" />
+			</javac>
+		</target>
+
+		<target name="create-war" depends="compile">
+		<!-- description="Create Web application ARchive" -->
+			<war destfile="${war.file}"
+				webxml="${web.dir}/WEB-INF/web${instance}.xml"
+			    manifest="${web.dir}/META-INF/MANIFEST.MF"
+			    update="true">
+			    <!-- web content -->
+			    <zipfileset dir="${web.dir}"
+			    			includes="**/*" excludes="WEB-INF/web*.xml" />
+			    <!-- compiled classes and resource files -->
+			    <zipfileset dir="${build.classes.dir}"
+			        		includes="**/*"
+			       			prefix="WEB-INF/classes" />
+			    <!-- referenced libs -->
+			    <!--zipfileset dir="(...)"
+			   		   		includes="*.jar"
+			    			prefix="WEB-INF/lib" /-->
+			        </war>
+			 <jar destfile="${war.file}" update="true"
+			             manifest="${web.dir}/META-INF/MANIFEST.MF">
+			            <!-- web content -->
+			            <zipfileset dir="${web.dir}"
+			                        includes="**/*" />
+			            <!-- compiled classes and resource files -->
+			            <zipfileset dir="${build.classes.dir}"
+			                        includes="**/*"
+			                        prefix="WEB-INF/classes" />
+			            <!-- referenced libs -->
+			            <!--zipfileset dir="(...)"
+			                        includes="*.jar"
+			                        prefix="WEB-INF/lib" /-->
+			        </jar>
+		</target>
+
+		<target name="build" depends="create-war"
+	        description="Build project" />
+
+		<target name="rebuild" depends="clean,build" />
+
+
+
+		<target name="build-1" description="Build instance 1">
+			<antcall target="build" inheritAll="false">
+				<param name="instance" value="1"/>
+			</antcall>
+		</target>
+
+		<target name="deploy-1" description="Deploy instance 1">
+			<antcall target="deploy" inheritAll="false">
+				<param name="instance" value="1"/>
+			</antcall>
+			<antcall target="db-build-1" inheritAll="false">
+				<param name="instance" value="1"/>
+			</antcall>
+		</target>
+
+		<target name="build-2" description="Build instance 2">
+			<antcall target="build" inheritAll="false">
+				<param name="instance" value="2"/>
+			</antcall>
+		</target>
+
+		<target name="deploy-2" description="Deploy instance 2">
+			<antcall target="deploy" inheritAll="false">
+				<param name="instance" value="2"/>
+			</antcall>
+			<antcall target="db-build-2" inheritAll="false">
+						<param name="instance" value="2"/>
+			</antcall>
+		</target>
+
+		<target name="builds" depends="build-1,build-2"
+	        description="Build multiple instances of project" />
+
+		<target name="deploys" depends="deploy-1,deploy-2"
+	        description="Deploy multiple instances of project" />
+		
+		<target name="undeploy-1" description="Deploy instance 1">
+					<antcall target="undeploy" inheritAll="false">
+						<param name="instance" value="1"/>
+					</antcall>
+				</target>
+	</project>

@@ -1,0 +1,148 @@
+<project name="pagamigo-ws-server" default="build" basedir=".">
+
+    <description>JBoss Java Web Service build file - contract first</description>
+
+    <import file="jboss7.xml" />
+
+    <!-- properties and paths -->
+
+    <property name="src.dir" location="src" />
+    <property name="web.dir" location="WebContent" />
+    <property name="build.dir" location="build" />
+    <property name="build.classes.dir" location="${build.dir}/classes" />
+    <property name="build.src.dir" location="${build.dir}/src" />
+
+    <path id="project.classpath">
+        <pathelement location="${build.classes.dir}" />
+        <path refid="javax.servlet.api" />
+        <path refid="javax.xml.registry.api" />
+    	<path refid="com.mysql.jdbc"/>
+    </path>
+
+    <property name="wsdl.file" value="${web.dir}/PagAmigo.1_0.wsdl" />
+    <makeurl property="wsdl.url" file="${wsdl.file}" />
+    
+    <property name="bank.wsdl.url" value="http://localhost:8080/bank-ws-server/endpoint?wsdl" />
+    <property name="ca.wsdl.url" value="http://localhost:8080/certification-authority/CertificateAuthority?wsdl" />
+
+    <property name="war.filename" value="${ant.project.name}.war" />
+    <property name="war.file" value="${build.dir}/${war.filename}" />
+
+    <target name="show"
+        description="Show property values" >
+        <echo message="ant.project.name = ${ant.project.name}" />
+        <echo message="" />
+        <echo message="src.dir = ${src.dir}" />
+        <echo message="web.dir = ${web.dir}" />
+        <echo message="build.dir = ${build.dir}" />
+        <echo message="build.classes.dir = ${build.classes.dir}" />
+        <echo message="build.src.dir = ${build.classes.dir}" />
+        <echo message="" />
+        <pathconvert property="project.classpath" refid="project.classpath" />
+        <echo message="project.classpath= ${project.classpath}" />
+        <echo message="" />
+        <echo message="wsdl.url = ${wsdl.url}" />
+        <echo message="" />
+        <echo message="war.file = ${war.file}" />
+    </target>
+
+    <!-- targets -->
+
+    <target name="init">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="${build.src.dir}" />
+    </target>
+
+    <target name="clean"
+        description="Delete build directory" >
+        <delete dir="${build.dir}" />
+    </target>
+
+    <target name="prepare-resources" depends="init">
+    <!-- description="Prepare application resource files" -->
+        <copy todir="${build.classes.dir}" overwrite="true">
+            <fileset dir="${src.dir}" excludes="**/*.java" />
+        </copy>
+        <replace dir="${build.classes.dir}" excludes="**/*.class" summary="true">
+            <replacefilter token="@example-token@" value="${example-property}" />
+        </replace>
+    </target>
+
+    <target name="wsimport" depends="init"
+        description="Generate web service server" >
+        <!-- assumes that wsimport tool is available in PATH environment property -->
+        <echo message="${wsdl.url}" />
+        <exec executable="wsimport" failonerror="true">
+            <arg value="-d" />
+            <arg value="${build.classes.dir}"/>
+            <arg value="-s" />
+            <arg value="${build.src.dir}" />
+            <arg value="${wsdl.url}" />
+        </exec>
+    </target>
+    
+    <target name="wsimport-bank" depends="init"
+        description="Generate web service server" >
+        <!-- assumes that wsimport tool is available in PATH environment property -->
+        <echo message="${bank.wsdl.url}" />
+        <exec executable="wsimport" failonerror="true">
+            <arg value="-d" />
+            <arg value="${build.classes.dir}"/>
+            <arg value="-s" />
+            <arg value="${build.src.dir}" />
+            <arg value="${bank.wsdl.url}" />
+        </exec>
+    </target>
+    
+    <target name="wsimport-ca" depends="init"
+        description="Generate web service server" >
+        <!-- assumes that wsimport tool is available in PATH environment property -->
+        <echo message="${ca.wsdl.url}" />
+        <exec executable="wsimport" failonerror="true">
+            <arg value="-d" />
+            <arg value="${build.classes.dir}"/>
+            <arg value="-s" />
+            <arg value="${build.src.dir}" />
+            <arg value="${ca.wsdl.url}" />
+        </exec>
+    </target>
+
+    <target name="compile" depends="init,prepare-resources,wsimport"
+        description="Compile source code" >
+        <javac srcdir="${src.dir}"
+            destdir="${build.classes.dir}"
+            includeantruntime="false" debug="true">
+            <classpath refid="project.classpath" />
+        </javac>
+    </target>
+
+    <target name="create-war" depends="compile">
+    <!-- description="Create Web application ARchive" -->
+        <jar destfile="${war.file}" update="true">
+            <!-- web content -->
+            <zipfileset dir="${web.dir}"
+                        includes="**/*" />
+            <!-- compiled classes and resource files -->
+            <zipfileset dir="${build.classes.dir}"
+                        includes="**/*,**/*.properties,**/*.xml"
+                        prefix="WEB-INF/classes" />
+            <!-- referenced libs -->
+            <!--zipfileset dir="(...)"
+                        includes="*.jar"
+                        prefix="WEB-INF/lib" /-->
+        </jar>
+    </target>
+	
+	<target name="create-jar" depends="compile">
+		<jar destfile="${build.dir}/pagamigo.jar" update="true">
+			<zipfileset dir="${build.classes.dir}" />
+		</jar>
+	</target>
+
+    <target name="build" depends="create-war"
+        description="Build the project" />
+
+    <target name="rebuild" depends="clean,build" />
+
+</project>

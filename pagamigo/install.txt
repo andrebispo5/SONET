@@ -1,0 +1,143 @@
+Projecto de Sistemas Distribuídos
+
+Primeira entrega - 2013-04-12 - 20h
+
+Grupo de SD 12
+
+Repositório A-02-12-14
+
+Andre Bispo		 66941	andrefsbispo@hotmail.com 
+Diogo Pinto		 69905	diogo.reis.pinto@gmail.com  
+Ricardo Leitao	 69632 	ricardo.f.leitao@ist.utl.pt
+
+-------------------------------------------------------------------------------
+
+Serviço PagAmigo
+
+Instruções de instalação para Windows
+(Como colocar o projecto a funcionar numa máquina do laboratório)
+
+[1] Iniciar servidores
+
+JBoss:
+> start standalone
+
+JUDDI:
+> startup
+
+
+[2] Criar directoria de trabalho
+
+cd temp
+mkdir SD
+cd SD
+
+
+[3] Obter versão entregue
+
+svn co svn+ssh://ist1yyyyy@sigma.ist.utl.pt/afs/ist.utl.pt/groups/leic-es/svn/A-02-12-14/pagamigo/tags/R_1 pagamigo
+
+
+[4] Preparar dados de teste
+
+Dados do teste são inseridos quando é feito deploy do servidor.
+Os dados inseridos são os da FAQ da página da cadeira.
+
+
+[5] Construir e instalar servidor
+
+cd pagamigo/pagamigo-ws-ser
+ant clean build
+ant deploy
+
+
+[6] Construir cliente
+
+cd pagamigo/pagamigo-ws-cli
+ant clean build
+ant run
+
+
+
+-------------------------------------------------------------------------------
+
+Instruções de teste:
+(Como verificar que todas as funcionalidades estão a funcionar correctamente)
+
+
+[1] Executar cliente de teste ...
+
+Os testes são efectuados quando chamado o ant run do cliente. Este são os casos testados:
+     [java] ################TESTING PAYMENT################
+     [java] Saldo do Balelas: pt.pagamigo.ws.ClienteInexistente: Client Balelas does not exist!
+     [java] Saldo do Alice: 10
+     [java] Saldo do ist: 0
+     [java] Transfer:Alice->ist [10] Transaction succeeded
+     [java] Saldo do Alice: 0
+     [java] Saldo do ist: 10
+     [java] Transfer:ist->zeninguem [10] Transaction succeeded
+     [java] Transfer:ist->zeninguem [10] pt.pagamigo.ws.SaldoInsuficiente: Not enough money!
+     [java] Transfer:Carlos->zeninguem [-50]pt.pagamigo.ws.MontanteInvalido: Invalid Amount!
+     [java] Transfer:Balelas->Bruno [15]pt.pagamigo.ws.ClienteInexistente: One or both clients do not exist!
+     [java] Transfer:Bruno->Balelas [10]pt.pagamigo.ws.ClienteInexistente: One or both clients do not exist!
+     [java] ################################################
+
+No caso das listagens dos movimentos, quando um user não existe mando excepção, caso contrario lista do seguinte modo:
+     [java] ################TESTING LISTING################
+     [java] ====================================
+     [java] -----------Alice Movimentos---------
+     [java] ====================================
+     [java] ------------------------------------
+     [java] Data:Thu Apr 11 15:24:14 GMT 2013
+     [java] Montante:-10
+     [java] Descricao:Doacao Caridosa.
+     [java] ------------------------------------
+     [java] ====================================
+     [java] --------zeninguem Movimentos--------
+     [java] ====================================
+     [java] ------------------------------------
+     [java] Data:Thu Apr 11 15:24:14 GMT 2013
+     [java] Montante:+10
+     [java] Descricao:Conta Offshore. shh
+     [java] ------------------------------------
+     [java] ====================================
+     [java] -----------ist Movimentos-----------
+     [java] ====================================
+     [java] ------------------------------------
+     [java] Data:Thu Apr 11 15:24:14 GMT 2013
+     [java] Montante:+10
+     [java] Descricao:Doacao Caridosa.
+     [java] ------------------------------------
+     [java] ------------------------------------
+     [java] Data:Thu Apr 11 15:24:14 GMT 2013
+     [java] Montante:-10
+     [java] Descricao:Conta Offshore. shh
+     [java] ------------------------------------
+     [java] ################################################
+     
+[2] Executar ...
+Quando o cliente é lançado tentar encontrar o ws do pagamigo no UDDI:
+     [java] ###############SEARCH IN UDDI##############
+     [java] Searching For SONET In UDDI Name Server(...)
+     [java] SONET Found! Setting Endpoint To Target Server (...)
+     [java] ################################################
+     [java]     
+     [java] ###############SETTING ENDPOINT################
+     [java] Changing endpoint address from:
+     [java] http://localhost:8080/pagamigo-ws-server/endpoint
+     [java] to:
+     [java] http://localhost:8080/pagamigo-ws-server/endpoint
+     [java] ################################################
+     
+Quando o mesmo não é encontrado:
+     [java] ###############SEARCH IN UDDI##############
+     [java] Searching For WS QUE NAO EXISTE In UDDI Name Server(...)
+     [java] WS QUE NAO EXISTE Not Found! Aborting (...)
+     [java] ################################################
+
+
+[NOTAS]
+Foi ainda implementado o update do WS no UDDI quando o mesmo se tenta registar 
+e já existe no UDDI.
+-------------------------------------------------------------------------------
+FIM
